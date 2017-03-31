@@ -22,8 +22,10 @@ app.use(parser.json());
 //  next();
 // })
 
-app.get("/", function(req, res){
-  res.send("hello!")
+app.get("/api", function(req, res){
+  User.find({}).then((users) => {
+    res.json(users)
+  })
 })
 
 
