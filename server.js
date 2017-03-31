@@ -4,6 +4,8 @@ const express = require("express")
 const mongoose = require("./db/connection.js")
 const parser = require("body-parser")
 
+const User = require("./db/models.js").User
+
 var app = express()
 
 var port = process.env.API_PORT || 3001
@@ -24,7 +26,6 @@ app.get("/", function(req, res){
   res.send("hello!")
 })
 
-app.use("/api", router)
 
 app.listen(port, function(){
   console.log("Port works yooooo")
