@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import './App.css';
 import About from './components/About'
+import Users from './components/Users'
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
           <nav>
             <h1>Text App</h1>
             <Link to="/about">About</Link>
+            <Link to="/users">Users</Link>
           </nav>
           <main>
             <Route
@@ -22,6 +24,14 @@ class App extends Component {
               render={() => {
                 return(
                   <About />
+                )
+              }}
+            />
+            <Route
+              path="/users"
+              render={() => {
+                return(
+                  <Users />
                 )
               }}
             />
