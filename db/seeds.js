@@ -7,7 +7,7 @@ User.remove({}, err => {
 })
 
 var spongebob = User.create({
-  username: "spongebob",
+  email: "spongebob@email.com",
   password: "gary",
   firstname: "Spongebob",
   lastname: "Squarepants",
@@ -15,7 +15,7 @@ var spongebob = User.create({
 })
 
 var squidward = User.create({
-  username: "squidward",
+  email: "squidward@email.com",
   password: "clarinet",
   firstname: "Squidward",
   lastname: "Tentacles",
@@ -23,7 +23,7 @@ var squidward = User.create({
 })
 
 var patrick = User.create({
-  username: "patrick",
+  email: "patrick@email.com",
   password: "rock",
   firstname: "Patrick",
   lastname: "Star",
@@ -31,7 +31,7 @@ var patrick = User.create({
 })
 
 var sandy = User.create({
-  username: "sandy",
+  email: "sandy@email.com",
   password: "texas",
   firstname: "Sandy",
   lastname: "Cheeks",

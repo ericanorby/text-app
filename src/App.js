@@ -6,9 +6,13 @@ import {
 } from 'react-router-dom'
 import axios from 'axios'
 import './App.css';
+
+//import components
 import About from './components/About'
 import Users from './components/Users'
-import SignIn from './components/SignIn'
+import Profile from './components/Profile'
+import Login from './components/Login'
+import Signup from './components/Signup'
 
 class App extends Component {
   constructor(props){
@@ -17,13 +21,13 @@ class App extends Component {
       users: []
     }
   }
-  componentDidMount(){
-    axios.get("http://localhost:3001/api").then((res) => {
-      this.setState({
-        users: res.data
-      })
-    })
-  }
+  // componentDidMount(){
+  //   axios.get("http://localhost:3001/api").then((res) => {
+  //     this.setState({
+  //       users: res.data
+  //     })
+  //   })
+  // }
   render() {
     return (
       <Router>
@@ -32,7 +36,9 @@ class App extends Component {
             <h1>Text App</h1>
             <Link to="/about">About</Link>
             <Link to="/users">Users</Link>
-            <Link to="/sign_in">Sign In</Link>
+            <Link to="/profile">Profile</Link>
+            <Link to="/login">Log In</Link>
+            <Link to="/signup">Sign Up</Link>
           </nav>
           <main>
             <Route
@@ -52,10 +58,26 @@ class App extends Component {
               }}
             />
             <Route
-              path="/sign_in"
+              path="/profile"
               render={() => {
                 return(
-                  <SignIn />
+                  <Profile />
+                )
+              }}
+            />
+            <Route
+              path="/login"
+              render={() => {
+                return(
+                  <Login />
+                )
+              }}
+            />
+            <Route
+              path="/signup"
+              render={() => {
+                return(
+                  <Signup />
                 )
               }}
             />
