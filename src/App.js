@@ -6,37 +6,33 @@ import {
 } from 'react-router-dom'
 import axios from 'axios'
 import './App.css';
+import cookie from 'react-cookie';
+// require("../config/passport")(passport)
 
 //import components
 import About from './components/About'
-import Users from './components/Users'
 import Profile from './components/Profile'
 import Login from './components/Login'
+import Logout from './components/Logout'
 import Signup from './components/Signup'
 
 class App extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      users: []
-    }
+    // this.state = {
+    //   currentUser: cookie.load('token')
+    // }
   }
-  // componentDidMount(){
-  //   axios.get("http://localhost:3001/api").then((res) => {
-  //     this.setState({
-  //       users: res.data
-  //     })
-  //   })
-  // }
   render() {
+
     return (
       <Router>
         <div>
           <nav>
             <h1>Text App</h1>
             <Link to="/about">About</Link>
-            <Link to="/users">Users</Link>
             <Link to="/profile">Profile</Link>
+            <Link to="/logout">Log Out</Link>
             <Link to="/login">Log In</Link>
             <Link to="/signup">Sign Up</Link>
           </nav>
@@ -50,26 +46,22 @@ class App extends Component {
               }}
             />
             <Route
-              path="/users"
-              render={() => {
-                return(
-                  <Users users={this.state.users} />
-                )
-              }}
-            />
-            <Route
               path="/profile"
-              render={() => {
-                return(
-                  <Profile />
-                )
-              }}
+              component={Profile}
             />
             <Route
               path="/login"
               render={() => {
                 return(
                   <Login />
+                )
+              }}
+            />
+            <Route
+              path="/logout"
+              render={() => {
+                return(
+                  <Logout />
                 )
               }}
             />

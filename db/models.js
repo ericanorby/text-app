@@ -7,7 +7,17 @@ const UserSchema = new mongoose.Schema(
     password: String,
     firstname: String,
     lastname: String,
-    phone: String
+    phone: String,
+    username: String,
+    groups: [{type: mongoose.Schema.Types.ObjectId, ref: "Group"}]
+  }
+)
+
+const GroupSchema = new mongoose.Schema(
+  {
+    title: String,
+    creator: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
+    users: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}]
   }
 )
 
@@ -22,7 +32,9 @@ UserSchema.methods.validPassword = function(password) {
 }
 
 const User = mongoose.model("User", UserSchema)
+const Group = mongoose.model("Group", GroupSchema)
 
 module.exports = {
-  User
+  User,
+  Group
 }

@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import cookie from "react-cookie"
 
 class Login extends Component {
 
   constructor(props){
     super(props)
     this.state = {
-      username: "",
+      email: "",
       password: ""
     }
   }
 
-  handleUsername(event){
+  handleEmail(event){
     this.setState({
-      username: event.target.value
+      email: event.target.value
     })
   }
 
@@ -25,17 +26,16 @@ class Login extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-    let username = this.state.username.trim()
+    let email = this.state.email.trim()
     let password = this.state.password.trim()
-    axios.post("http://localhost:3001/api/login", {username: username, password: password})
-    .then((response) => {
-      console.log(response)
-      this.setState({username: "", password: ""})
+    axios.post("http://localhost:3001/api/login", {email, password})
+    .then((res) => {
+      console.log(res.data)
+      cookie.save('token', res.data.token, { path: "/"})
     })
     .catch((err) => {
       console.log(err);
     })
-
   }
 
   render(){
@@ -43,7 +43,7 @@ class Login extends Component {
       <div>
         <form onSubmit={(e) => {this.handleSubmit(e)}}>
           <div>
-              <input type="text" placeholder="username" onChange={(e) => {this.handleUsername(e)}} />
+              <input type="text" placeholder="email" onChange={(e) => {this.handleEmail(e)}} />
           </div>
           <div>
               <input type="password" placeholder="password" onChange={(e) => {this.handlePassword(e)}} />
