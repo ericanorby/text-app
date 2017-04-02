@@ -20,11 +20,24 @@ class Search extends Component {
   handleSearchQuery(event){
     event.preventDefault()
     let input = this.state.input.trim()
-    axios.post(`http://localhost:3001/api/users/search/${input}`)
+    axios.post("http://localhost:3001/api/users/search", {input})
     .then((res) => {
       this.setState({
         result: res.data
       })
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  handleAddUser(event){
+    event.preventDefault()
+    let user = this.state.result
+    let group = this.props.group
+    axios.post(`http://localhost:3001/api/groups/${group._id}/add`, {user})
+    .then((res) => {
+      console.log(res)
     })
     .catch((err) => {
       console.log(err);
@@ -39,6 +52,7 @@ class Search extends Component {
         <button type="submit">Submit</button>
         </form>
         {this.state.result.firstname}
+        <button onClick={(e) => {this.handleAddUser(e)}}>Add this user</button>
       </div>
     )
   }

@@ -36,7 +36,7 @@ class Group extends Component {
         <h2>Members:</h2>
         {members}
         <h2>Add another user:</h2>
-        <Search />
+        <Search group={this.state.group} />
       </div>
     )
   }

@@ -123,8 +123,16 @@ app.get("/api/groups/:id", function(req, res){
   })
 })
 
-app.post("/api/users/search/:input", function(req, res){
-  User.findOne({phone: req.params.input}).then(function(user){
+app.post("/api/groups/:id/add", function(req,res){
+  Group.findOne({_id: req.params.id}).then(function(group){
+    group.users.push(req.body.user)
+    group.save()
+    console.log(group)
+  })
+})
+
+app.post("/api/users/search", function(req, res){
+  User.findOne({phone: req.body.input}).then(function(user){
     res.json(user)
   })
 })
