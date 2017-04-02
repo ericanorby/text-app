@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import cookie from 'react-cookie';
 import { Link } from 'react-router-dom'
+import '../profile.css';
 
 
 class Profile extends Component {
@@ -26,7 +27,7 @@ class Profile extends Component {
     var groups = this.state.groups.map((group, index) => {
       let pathname = `/groups/${group._id}`
       return(
-        <div key={index}>
+        <div key={index} className="group-box">
           <Link to={{pathname, state: {selected: group}}}>
           <h3>{group.title}</h3>
           </Link>
@@ -39,7 +40,7 @@ class Profile extends Component {
         <h1>User Profile</h1>
         <h3>{this.state.user.email}</h3>
         <h3>{this.state.user.firstname} {this.state.user.lastname}</h3>
-        <Link to="/group/new"> + </Link>
+        <Link to="/group/new"> + Create New Group </Link>
         <h1>Groups you belong to:</h1>
         {groups}
       </div>

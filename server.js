@@ -125,9 +125,32 @@ app.get("/api/groups/:id", function(req, res){
 
 app.post("/api/groups/:id/add", function(req,res){
   Group.findOne({_id: req.params.id}).then(function(group){
-    group.users.push(req.body.user)
-    group.save()
-    console.log(group)
+    //check to see if user is already a member
+    var proceed = true
+    group.users.forEach((user) => {
+      if (user == req.body.user._id){
+        proceed = false
+        res.json({success: false, message: "User is already a member."})
+      }
+    })
+    //if user is not a member, proceed
+    if (proceed){
+      group.users.push(req.body.user)
+      group.save(function(err, group){
+        User.findOne({_id: req.body.user._id}).then(function(user){
+          user.groups.push(group)
+          user.save(function(err){
+            if (err) {
+              return res.json({ success: false, message: 'User could not be added to the group.'})
+            }
+            res.json({ success: true, message: 'User was added to the group.' })
+          })
+        })
+        if (err) {
+          return res.json({ success: false, message: 'User could not be added to the group.'})
+        }
+      })
+    }
   })
 })
 

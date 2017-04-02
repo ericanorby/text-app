@@ -7,7 +7,8 @@ class Search extends Component {
     super(props)
     this.state = {
       input: "",
-      result: ""
+      result: "",
+      flash: ""
     }
   }
 
@@ -37,7 +38,9 @@ class Search extends Component {
     let group = this.props.group
     axios.post(`http://localhost:3001/api/groups/${group._id}/add`, {user})
     .then((res) => {
-      console.log(res)
+      this.setState({
+        flash: res.data.message
+      })
     })
     .catch((err) => {
       console.log(err);
@@ -47,6 +50,7 @@ class Search extends Component {
   render(){
     return(
       <div>
+        {this.state.flash}
         <form onSubmit={(e) => {this.handleSearchQuery(e)}}>
         <input type="text" placeholder="phone number" onChange={(e) => {this.handleSearchInput(e)}} />
         <button type="submit">Submit</button>
