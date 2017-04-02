@@ -4,7 +4,6 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-import axios from 'axios'
 import './App.css';
 import cookie from 'react-cookie';
 
@@ -14,6 +13,7 @@ import Profile from './components/Profile'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import Signup from './components/Signup'
+import Group from './components/Group'
 
 class App extends Component {
   constructor(props){
@@ -71,6 +71,10 @@ class App extends Component {
                   <Signup />
                 )
               }}
+            />
+            <Route
+              path="/groups/:id"
+              component={Group}
             />
           </main>
         </div>

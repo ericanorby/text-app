@@ -14,6 +14,7 @@ var jwt = require("jsonwebtoken")
 require("./config/passport")(passport)
 
 const User = require("./db/models.js").User
+const Group = require("./db/models.js").Group
 
 app.use(cookie())
 app.use(parser.urlencoded({ extended: true }))
@@ -97,6 +98,12 @@ app.get("/api/profile", function(req,res){
       user: user,
       groups: user.groups
     })
+  })
+})
+
+app.get("/api/groups/:id", function(req, res){
+  Group.findOne({_id: req.params.id}).populate('users').exec(function(err, group){
+    res.json(group.users)
   })
 })
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import cookie from "react-cookie"
 
 class Logout extends Component {

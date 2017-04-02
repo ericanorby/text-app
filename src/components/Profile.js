@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import cookie from 'react-cookie';
 import Search from './Search'
+import {
+  Link
+} from 'react-router-dom'
 
 class Profile extends Component {
   constructor(props){
@@ -23,9 +26,12 @@ class Profile extends Component {
   }
   render(){
     var groups = this.state.groups.map((group, index) => {
+      let pathname = `/groups/${group._id}`
       return(
         <div key={index}>
+          <Link to={{pathname, state: {selected: group}}}>
           <h3>{group.title}</h3>
+          </Link>
           <p>{group.users.length} Members</p>
         </div>
       )
