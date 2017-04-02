@@ -7,7 +7,6 @@ import {
 import axios from 'axios'
 import './App.css';
 import cookie from 'react-cookie';
-// require("../config/passport")(passport)
 
 //import components
 import About from './components/About'
@@ -19,9 +18,9 @@ import Signup from './components/Signup'
 class App extends Component {
   constructor(props){
     super(props)
-    // this.state = {
-    //   currentUser: cookie.load('token')
-    // }
+    this.state = {
+      currentUser: cookie.load('token')
+    }
   }
   render() {
 

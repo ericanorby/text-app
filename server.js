@@ -92,8 +92,11 @@ app.post('/api/login', function(req, res) {
 // });
 
 app.get("/api/profile", function(req,res){
-  User.findOne({email: "spongebob@email.com"}).then((user) => {
-    res.json(user)
+  User.findOne({email: "spongebob@email.com"}).populate('groups').exec(function(err, user){
+    res.json({
+      user: user,
+      groups: user.groups
+    })
   })
 })
 

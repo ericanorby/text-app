@@ -56,14 +56,14 @@ sandy.save()
 
 var group1 = new Group({
   title: "Spongebob's awesome group",
-  creator: spongebob.id,
-  users: [squidward.id, sandy.id]
+  creator: spongebob._id,
+  users: [squidward._id, sandy._id]
 })
 
 var group2 = new Group({
   title: "Patrick's group is better",
-  creator: patrick.id,
-  users: [sandy.id]
+  creator: patrick._id,
+  users: [sandy._id]
 })
 
 group1.save(function(err){
@@ -84,11 +84,16 @@ group2.save(function(err){
   }
 })
 
-User.findOneAndUpdate({email: "spongebob@email.com"}, {$set:{groups: [group1.id]}}, {new: true}, function(err, doc){
-  if (err){
-    console.log(err)
-  }
-  else {
-    console.log(doc)
-  }
+// User.findOneAndUpdate({email: "spongebob@email.com"}, {$set:{groups: [group1.id]}}, {new: true}, function(err, doc){
+//   if (err){
+//     console.log(err)
+//   }
+//   else {
+//     console.log(doc)
+//   }
+// })
+
+spongebob.groups.push(group1)
+spongebob.save().then((user) =>{
+  console.log(user)
 })
