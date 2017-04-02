@@ -3,6 +3,7 @@ import axios from 'axios'
 import cookie from 'react-cookie';
 import { Link } from 'react-router-dom'
 import '../profile.css';
+import NewGroup from './NewGroup'
 
 
 class Profile extends Component {
@@ -40,9 +41,12 @@ class Profile extends Component {
         <h1>User Profile</h1>
         <h3>{this.state.user.email}</h3>
         <h3>{this.state.user.firstname} {this.state.user.lastname}</h3>
-        <Link to="/group/new"> + Create New Group </Link>
+        <h1>Create a new group:</h1>
+        <NewGroup user={this.state.user} />
         <h1>Groups you belong to:</h1>
-        {groups}
+        <div className="group-container">
+          {groups}
+        </div>
       </div>
     )
   }

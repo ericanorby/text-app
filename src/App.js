@@ -14,7 +14,6 @@ import Login from './components/Login'
 import Logout from './components/Logout'
 import Signup from './components/Signup'
 import Group from './components/Group'
-import NewGroup from './components/NewGroup'
 
 class App extends Component {
   constructor(props){
@@ -50,14 +49,6 @@ class App extends Component {
               render={() => {
                 return(
                   <Profile />
-                )
-              }}
-            />
-            <Route
-              exact path="/group/new"
-              render={() => {
-                return(
-                  <NewGroup />
                 )
               }}
             />

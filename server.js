@@ -104,12 +104,21 @@ app.get("/api/profile", function(req,res){
 app.post("/api/group/new", function(req,res){
   var newGroup = new Group({
     title: req.body.title,
+    creator: req.body.creator._id,
     users: []
   })
-  newGroup.save(function(err){
-    if (err){
-      return err
+  newGroup.save(function(err,group){
+    if (err) {
+      console.log(err)
     }
+    User.findOne({_id: req.body.creator._id}).then(function(user){
+      user.groups.push(group)
+      user.save(function(err){
+        if (err) {
+          console.log(err)
+        }
+      })
+    })
   })
 })
 

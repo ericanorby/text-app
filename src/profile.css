@@ -1,8 +1,13 @@
+.group-container {
+  display: flex;
+}
+
 .group-box {
   background: lightgray;
   border: 1px solid gray;
   border-radius: 8px;
   padding: 10px;
+  margin: 10px;
   height: 150px;
   width: 300px;
   display: flex;

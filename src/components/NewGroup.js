@@ -18,7 +18,8 @@ class NewGroup extends Component {
   handleSubmit(event){
     event.preventDefault()
     let title = this.state.title.trim()
-    axios.post("http://localhost:3001/api/groups/new", {title})
+    let creator = this.props.user
+    axios.post("http://localhost:3001/api/group/new", {title, creator})
     .then((res) => {
       console.log(res.data)
     })
