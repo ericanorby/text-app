@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import cookie from 'react-cookie';
-import Search from './Search'
-import {
-  Link
-} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
 
 class Profile extends Component {
   constructor(props){
@@ -32,7 +30,7 @@ class Profile extends Component {
           <Link to={{pathname, state: {selected: group}}}>
           <h3>{group.title}</h3>
           </Link>
-          <p>{group.users.length} Members</p>
+          <p>{group.users.length + 1} Members</p>
         </div>
       )
     })
@@ -41,9 +39,9 @@ class Profile extends Component {
         <h1>User Profile</h1>
         <h3>{this.state.user.email}</h3>
         <h3>{this.state.user.firstname} {this.state.user.lastname}</h3>
+        <Link to="/group/new"> + </Link>
         <h1>Groups you belong to:</h1>
         {groups}
-        <Search />
       </div>
     )
   }

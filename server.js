@@ -101,9 +101,31 @@ app.get("/api/profile", function(req,res){
   })
 })
 
+app.post("/api/group/new", function(req,res){
+  var newGroup = new Group({
+    title: req.body.title,
+    users: []
+  })
+  newGroup.save(function(err){
+    if (err){
+      return err
+    }
+  })
+})
+
 app.get("/api/groups/:id", function(req, res){
-  Group.findOne({_id: req.params.id}).populate('users').exec(function(err, group){
-    res.json(group.users)
+  var popQuery = [{path: 'creator', model: 'User'}, {path: 'users', model: 'User'}]
+  Group.findOne({_id: req.params.id}).populate(popQuery).exec(function(err, group){
+    res.json({
+      creator: group.creator,
+      members: group.users
+    })
+  })
+})
+
+app.post("/api/users/search/:input", function(req, res){
+  User.findOne({phone: req.params.input}).then(function(user){
+    res.json(user)
   })
 })
 
