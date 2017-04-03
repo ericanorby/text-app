@@ -177,6 +177,30 @@ app.post("/api/groups/:id/add", function(req,res){
   })
 })
 
+app.post("/api/groups/:id/newmessage", function(req, res){
+  Group.findOne({_id: req.params.id}).then(function(group){
+    if (group.messages.length >= 6) {
+      console.log("too many messages!")
+    }
+    else {
+      var newMessage = new Message({
+        content: req.body.content
+      })
+      newMessage.save(function(err, message){
+        if (err) {
+          console.log(err)
+        }
+        group.messages.push(message)
+        group.save(function(err){
+          if (err) {
+            console.log(err)
+          }
+        })
+      })
+    }
+  })
+})
+
 
 app.post("/api/users/search", function(req, res){
   User.findOne({phone: req.body.input}).then(function(user){

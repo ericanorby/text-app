@@ -5,6 +5,7 @@ import '../group.css';
 //import components
 import Search from './Search'
 import Messages from './Messages'
+import NewMessage from './NewMessage'
 
 class Group extends Component {
   constructor(props){
@@ -48,6 +49,7 @@ class Group extends Component {
             <Search group={this.state.group} />
           </div>
         </div>
+        <NewMessage group={this.state.group} />
         <Messages messages={this.state.messages} />
       </div>
     )
