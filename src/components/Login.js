@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import cookie from "react-cookie"
 
 class Login extends Component {
 
@@ -31,7 +30,6 @@ class Login extends Component {
     axios.post("http://localhost:3001/api/login", {email, password})
     .then((res) => {
       console.log(res.data)
-      cookie.save('token', res.data.token, { path: "/"})
     })
     .catch((err) => {
       console.log(err);

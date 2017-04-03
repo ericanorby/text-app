@@ -5,7 +5,6 @@ import {
   Link
 } from 'react-router-dom'
 import './App.css';
-import cookie from 'react-cookie';
 
 //import components
 import About from './components/About'
@@ -16,12 +15,6 @@ import Signup from './components/Signup'
 import Group from './components/Group'
 
 class App extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      currentUser: cookie.load('token')
-    }
-  }
   render() {
 
     return (

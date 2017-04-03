@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import cookie from 'react-cookie';
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import '../profile.css';
 import NewGroup from './NewGroup'
 
@@ -11,13 +10,12 @@ class Profile extends Component {
     super(props)
     this.state = {
       user: {},
-      groups: []
+      groups: [],
+      refresh: false
     }
   }
   componentDidMount(){
-    axios.get("http://localhost:3001/api/profile", {
-      headers: { 'Authorization': cookie.load('token') }
-    }).then((res) => {
+    axios.get("http://localhost:3001/api/profile").then((res) => {
       this.setState({
         user: res.data.user,
         groups: res.data.groups
@@ -41,11 +39,14 @@ class Profile extends Component {
         <h1>User Profile</h1>
         <h3>{this.state.user.email}</h3>
         <h3>{this.state.user.firstname} {this.state.user.lastname}</h3>
-        <h1>Create a new group:</h1>
-        <NewGroup user={this.state.user} />
+
         <h1>Groups you belong to:</h1>
         <div className="group-container">
           {groups}
+          <div className="group-box new-group">
+            <p>Add a new group</p>
+            <NewGroup user={this.state.user} />
+          </div>
         </div>
       </div>
     )

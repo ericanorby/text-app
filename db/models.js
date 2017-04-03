@@ -21,6 +21,13 @@ const GroupSchema = new mongoose.Schema(
   }
 )
 
+// const MessageSchema = new mongoose.Schema(
+//   {
+//     time: String,
+//     date:
+//   }
+// )
+
 //generate a salt hash
 UserSchema.methods.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
