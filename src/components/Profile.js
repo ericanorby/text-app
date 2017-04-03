@@ -14,6 +14,7 @@ class Profile extends Component {
     }
     this.loadGroupsFromServer = this.loadGroupsFromServer.bind(this)
   }
+
   loadGroupsFromServer(){
     axios.get("http://localhost:3001/api/profile").then((res) => {
       this.setState({
@@ -22,6 +23,21 @@ class Profile extends Component {
       })
     })
   }
+
+  handleNewGroup(group){
+    axios.post("http://localhost:3001/api/group/new", group)
+    .then((res) => {
+      let groups = this.state.groups
+      let newGroups = groups.concat([res.data])
+      this.setState({
+        groups: newGroups
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
   componentDidMount(){
     this.loadGroupsFromServer()
   }
@@ -50,7 +66,7 @@ class Profile extends Component {
           {groups}
           <div className="group-box new-group">
             <p>Add a new group</p>
-            <NewGroup reload={() => this.loadGroupsFromServer()} user={this.state.user} />
+            <NewGroup submitGroup={(e) => this.handleNewGroup(e)} user={this.state.user} />
           </div>
         </div>
       </div>

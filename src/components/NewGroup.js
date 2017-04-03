@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import $ from 'jquery'
 
 class NewGroup extends Component {
   constructor(props){
@@ -18,17 +18,14 @@ class NewGroup extends Component {
   handleSubmit(event){
     event.preventDefault()
     let title = this.state.title.trim()
-    let creator = this.props.user
-    axios.post("http://localhost:3001/api/group/new", {title, creator})
-    .then((res) => {
-      this.setState({
-        title: ""
-      })
-      this.props.reload()
+    if (!title){
+      return
+    }
+    this.props.submitGroup({title: title, creator: this.props.user})
+    this.setState({
+      title: ""
     })
-    .catch((err) => {
-      console.log(err);
-    })
+    $("#title-field").val("")
   }
 
   render(){
@@ -36,7 +33,7 @@ class NewGroup extends Component {
       <div>
         <form onSubmit={(e) => {this.handleSubmit(e)}}>
           <div>
-              <input type="text" placeholder="title" onChange={(e) => {this.handleTitle(e)}} />
+              <input type="text" id="title-field" placeholder="title" onChange={(e) => {this.handleTitle(e)}} />
           </div>
           <div>
               <button type="submit">Create</button>

@@ -97,7 +97,7 @@ app.post('/api/login', function(req, res) {
 
 app.get("/api/profile", function(req,res){
   // console.log("session value is: " + req.session.email)
-  User.findOne({email: "spongebob@email.com"}).populate('groups').exec(function(err, user){
+  User.findOne({email: "sandy@email.com"}).populate('groups').exec(function(err, user){
     res.json({
       user: user,
       groups: user.groups
@@ -120,6 +120,7 @@ app.post("/api/group/new", function(req,res){
       if (err) {
         console.log(err)
       }
+      res.json(group)
       User.findOne({_id: req.body.creator._id}).then(function(user){
         user.groups.push(group)
         user.save(function(err){
@@ -188,7 +189,7 @@ app.post("/api/groups/:id/newmessage", function(req, res){
     }
     else {
       var newMessage = new Message({
-        content: req.body.message.content
+        content: req.body.content
       })
       newMessage.save(function(err, message){
         if (err) {

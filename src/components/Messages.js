@@ -28,7 +28,7 @@ class Messages extends Component {
         messages: newMessages
       })
     }
-    axios.post(`http://localhost:3001/api/groups/${this.props.group._id}/newmessage`, {message})
+    axios.post(`http://localhost:3001/api/groups/${this.props.group._id}/newmessage`, message)
     .then((res) => {
       this.setState({
         flash: res.data.message
