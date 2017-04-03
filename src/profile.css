@@ -1,3 +1,7 @@
+.user-profile {
+  text-align: center;
+}
+
 .group-container {
   display: flex;
   flex-wrap: wrap;

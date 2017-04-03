@@ -8,7 +8,8 @@ class Search extends Component {
     this.state = {
       input: "",
       result: "",
-      flash: ""
+      flash: "",
+      searched: false
     }
   }
 
@@ -24,7 +25,8 @@ class Search extends Component {
     axios.post("http://localhost:3001/api/users/search", {input})
     .then((res) => {
       this.setState({
-        result: res.data
+        result: res.data,
+        searched: true
       })
     })
     .catch((err) => {
@@ -48,15 +50,19 @@ class Search extends Component {
   }
 
   render(){
+    var results = null
+    if (this.state.searched){
+      results = <div className="results">{this.state.result.firstname} <button onClick={(e) => {this.handleAddUser(e)}}>Add this user</button></div>
+    }
     return(
-      <div>
+      <div className="search-box">
+        <h2>Add new member:</h2>
         {this.state.flash}
         <form onSubmit={(e) => {this.handleSearchQuery(e)}}>
         <input type="text" placeholder="phone number" onChange={(e) => {this.handleSearchInput(e)}} />
         <button type="submit">Submit</button>
         </form>
-        {this.state.result.firstname}
-        <button onClick={(e) => {this.handleAddUser(e)}}>Add this user</button>
+        {results}
       </div>
     )
   }

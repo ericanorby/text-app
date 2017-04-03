@@ -1,17 +1,21 @@
 "use strict"
 
+
 const express = require("express")
 const app = express()
-const port = process.env.API_PORT || 3001
 const mongoose = require("./db/connection.js")
+const port = process.env.API_PORT || 3001
+const cookie = require("cookie-parser")
 const parser = require("body-parser")
 const jwt = require("express-jwt")
+// const passport = require("passport")
+const session = require("express-session")
+const MongoStore = require('connect-mongo')(session)
+// const auth = require("./config/auth.js")
+
 const User = require("./db/models.js").User
 const Group = require("./db/models.js").Group
-const auth = require("./config/auth.js")
-
-app.use(parser.urlencoded({ extended: true }))
-app.use(parser.json())
+const Message = require("./db/models.js").Message
 
 app.use(function(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -21,9 +25,32 @@ app.use(function(req, res, next) {
   next();
 });
 
-const authCheck = jwt({
-  secret: auth.secret,
-  audience: auth.audience
+app.use(cookie('mysecretboxofsecretdom'))
+app.use(parser.urlencoded({ extended: true }))
+app.use(parser.json())
+
+app.use(session({
+  secret: 'mysecretboxofsecretdom',
+  saveUninitialized: true,
+  resave: true,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}))
+
+// var auth = function(req,res,next){
+//
+// })
+
+// const authCheck = jwt({
+//   secret: auth.secret,
+//   audience: auth.audience
+// })
+
+app.get('/api', function(req, res){
+  if (req.session.user == undefined){
+    console.log("user not in session yet")
+  } else {
+    console.log("user in session: " + req.session.user)
+  }
 })
 
 app.post('/api/signup', function(req, res) {
@@ -46,33 +73,20 @@ app.post('/api/signup', function(req, res) {
 });
 
 app.post('/api/login', function(req, res) {
+  console.log(req.session)
+  console.log("email set to: " + req.body.email)
+  req.session.user = req.body.email
+  req.session.save()
+  console.log("session value set: " + req.session.user)
+
   User.findOne({
     email: req.body.email
   }, function(err, user) {
-    if (err) throw err;
-
-    // if (!user) {
-    //   res.send({ success: false, message: 'Authentication failed. User not found.' });
-    // } else {
-    //   var token = jwt.sign(user, "hello", {
-    //         expiresIn: 10080 // in seconds
-    //       });
-    //
-    //   res.json({ success: true, token: 'JWT ' + token });
-
-      // Check if password matches
-      // user.comparePassword(req.body.password, function(err, isMatch) {
-      //   if (isMatch && !err) {
-      //     // Create token if the password matched and no error was thrown
-      //     var token = jwt.sign(user, config.secret, {
-      //       expiresIn: 10080 // in seconds
-      //     });
-      //     res.json({ success: true, token: 'JWT ' + token });
-      //   } else {
-      //     res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
-      //   }
-      // });
-    // }
+    if (err){
+      console.log(err)
+    }
+    // res.json(user)
+    console.log(user)
   })
 })
 
@@ -81,8 +95,9 @@ app.post('/api/login', function(req, res) {
 //   res.json(req.user)
 // });
 
-app.get("/api/profile", authCheck, function(req,res){
-  User.findOne({email: "sandy@email.com"}).populate('groups').exec(function(err, user){
+app.get("/api/profile", function(req,res){
+  // console.log("session value is: " + req.session.email)
+  User.findOne({email: "spongebob@email.com"}).populate('groups').exec(function(err, user){
     res.json({
       user: user,
       groups: user.groups
@@ -98,7 +113,8 @@ app.post("/api/group/new", function(req,res){
     var newGroup = new Group({
       title: req.body.title,
       creator: req.body.creator._id,
-      users: []
+      users: [],
+      messages: []
     })
     newGroup.save(function(err,group){
       if (err) {
@@ -117,11 +133,12 @@ app.post("/api/group/new", function(req,res){
 })
 
 app.get("/api/groups/:id", function(req, res){
-  var popQuery = [{path: 'creator', model: 'User'}, {path: 'users', model: 'User'}]
+  var popQuery = [{path: 'creator', model: 'User'}, {path: 'users', model: 'User'}, {path: 'messages', model: 'Message'}]
   Group.findOne({_id: req.params.id}).populate(popQuery).exec(function(err, group){
     res.json({
       creator: group.creator,
-      members: group.users
+      members: group.users,
+      messages: group.messages
     })
   })
 })
@@ -159,6 +176,7 @@ app.post("/api/groups/:id/add", function(req,res){
     }
   })
 })
+
 
 app.post("/api/users/search", function(req, res){
   User.findOne({phone: req.body.input}).then(function(user){

@@ -4,7 +4,17 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+// import { login, logout, isLoggedIn } from '../config/AuthService'
 import './App.css';
+
+
+
+// { ( isLoggedIn() ) ?
+//   <div>
+// <Link to="/profile">Profile</Link>
+// <Link to="/logout" onClick={() => logout()}>Log Out</Link>
+// </div>: ""
+// }
 
 //import components
 import About from './components/About'
@@ -15,18 +25,46 @@ import Signup from './components/Signup'
 import Group from './components/Group'
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      user: {},
+      loggedIn: false
+    }
+  }
+
+  updateLogin(){
+    this.setState({
+      loggedIn: true
+    })
+  }
+
+  updateLogout(){
+    this.setState({
+      loggedIn: false
+    })
+  }
+
   render() {
+      var isLoggedIn = this.state.loggedIn
+      var toggleLink = null
+      var toggleLink2 = null
+      if (isLoggedIn){
+        toggleLink = <Link to="/logout">Log Out</Link>
+        toggleLink2 = <Link to="/profile">Profile</Link>
+      } else {
+        toggleLink = <Link to="/login">Log In</Link>
+        toggleLink2 = <Link to="/signup">Sign Up</Link>
+      }
 
     return (
       <Router>
         <div>
           <nav>
-            <h1>Text App</h1>
             <Link to="/about">About</Link>
-            <Link to="/profile">Profile</Link>
-            <Link to="/logout">Log Out</Link>
-            <Link to="/login">Log In</Link>
-            <Link to="/signup">Sign Up</Link>
+            {toggleLink2}
+            {toggleLink}
+            <h1>Text App</h1>
           </nav>
           <main>
             <Route
@@ -49,7 +87,7 @@ class App extends Component {
               path="/login"
               render={() => {
                 return(
-                  <Login />
+                  <Login updateLogin={() => this.updateLogin()} user={this.state.user} />
                 )
               }}
             />
@@ -57,7 +95,7 @@ class App extends Component {
               path="/logout"
               render={() => {
                 return(
-                  <Logout />
+                  <Logout updateLogout={() => this.updateLogout()}/>
                 )
               }}
             />

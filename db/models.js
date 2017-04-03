@@ -17,16 +17,16 @@ const GroupSchema = new mongoose.Schema(
   {
     title: String,
     creator: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
-    users: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}]
+    users: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}],
+    messages: [{type: mongoose.Schema.Types.ObjectId, ref: "Message"}]
   }
 )
 
-// const MessageSchema = new mongoose.Schema(
-//   {
-//     time: String,
-//     date:
-//   }
-// )
+const MessageSchema = new mongoose.Schema(
+  {
+    content: String
+  }
+)
 
 //generate a salt hash
 UserSchema.methods.generateHash = function(password) {
@@ -40,8 +40,10 @@ UserSchema.methods.validPassword = function(password) {
 
 const User = mongoose.model("User", UserSchema)
 const Group = mongoose.model("Group", GroupSchema)
+const Message = mongoose.model("Message", MessageSchema)
 
 module.exports = {
   User,
-  Group
+  Group,
+  Message
 }

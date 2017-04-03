@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import '../group.css';
 
 //import components
 import Search from './Search'
+import Messages from './Messages'
 
 class Group extends Component {
   constructor(props){
@@ -10,14 +12,16 @@ class Group extends Component {
     this.state = {
       group: this.props.location.state.selected,
       creator: {},
-      members: []
+      members: [],
+      messages: []
     }
   }
   componentDidMount(){
     axios.get(`http://localhost:3001/api/groups/${this.state.group._id}`).then((res) => {
       this.setState({
         creator: res.data.creator,
-        members: res.data.members
+        members: res.data.members,
+        messages: res.data.messages
       })
     })
   }
@@ -30,13 +34,21 @@ class Group extends Component {
       )
     })
     return(
-      <div>
-        <h1>{this.state.group.title}</h1>
-        <p>Created by: {this.state.creator.firstname} {this.state.creator.lastname}</p>
-        <h2>Members:</h2>
-        {members}
-        <h2>Add another user:</h2>
-        <Search group={this.state.group} />
+      <div className="flex">
+        <div>
+          <div className="group-title">
+            <h1>{this.state.group.title}</h1>
+            <p>Created by: {this.state.creator.firstname} {this.state.creator.lastname}</p>
+          </div>
+          <div className="flex">
+            <div>
+              <h2>Members:</h2>
+              {members}
+            </div>
+            <Search group={this.state.group} />
+          </div>
+        </div>
+        <Messages messages={this.state.messages} />
       </div>
     )
   }

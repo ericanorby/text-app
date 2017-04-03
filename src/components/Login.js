@@ -24,12 +24,14 @@ class Login extends Component {
   }
 
   handleSubmit(event){
+    this.props.updateLogin()
     event.preventDefault()
     let email = this.state.email.trim()
     let password = this.state.password.trim()
     axios.post("http://localhost:3001/api/login", {email, password})
     .then((res) => {
       console.log(res.data)
+
     })
     .catch((err) => {
       console.log(err);

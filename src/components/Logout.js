@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
-import cookie from "react-cookie"
 
 class Logout extends Component {
+  // constructor(props){
+  //   super(props)
+  // }
+
+  componentDidMount(){
+    this.props.updateLogout()
+  }
   render(){
-    cookie.remove("token", {path: "/"})
     return(
       <div>Logged out successfully.</div>
     )

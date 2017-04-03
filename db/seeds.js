@@ -1,5 +1,6 @@
 const User = require("./models.js").User
 const Group = require("./models.js").Group
+const Message = require("./models.js").Message
 
 User.remove({}, err => {
   if (err) {
@@ -12,6 +13,13 @@ Group.remove({}, err => {
     console.log(err)
   }
 })
+
+Message.remove({}, err => {
+  if (err) {
+    console.log(err)
+  }
+})
+
 
 var spongebob = new User({
   email: "spongebob@email.com",
@@ -54,16 +62,34 @@ patrick.save()
 squidward.save()
 sandy.save()
 
+var message1 = new Message({
+  content: "baby's first message"
+})
+
+var message2 = new Message({
+  content: "baby's second message"
+})
+
+var message3 = new Message({
+  content: "ooohhh life is good"
+})
+
+message1.save()
+message2.save()
+message3.save()
+
 var group1 = new Group({
   title: "Spongebob's awesome group",
   creator: spongebob._id,
-  users: [squidward._id, sandy._id]
+  users: [squidward._id, sandy._id],
+  messages: [message1._id, message2._id]
 })
 
 var group2 = new Group({
   title: "Patrick's group is better",
   creator: patrick._id,
-  users: [sandy._id]
+  users: [sandy._id],
+  messages: [message3._id]
 })
 
 group1.save(function(err){
@@ -83,15 +109,6 @@ group2.save(function(err){
     console.log(group2)
   }
 })
-
-// User.findOneAndUpdate({email: "spongebob@email.com"}, {$set:{groups: [group1.id]}}, {new: true}, function(err, doc){
-//   if (err){
-//     console.log(err)
-//   }
-//   else {
-//     console.log(doc)
-//   }
-// })
 
 spongebob.groups.push(group1)
 spongebob.save().then((user) =>{

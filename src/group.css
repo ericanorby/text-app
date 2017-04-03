@@ -1,0 +1,23 @@
+.group-title {
+  border: 1px solid gray;
+  padding: 10px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex > * {
+  padding: 30px;
+}
+
+.results {
+  margin-top: 20px;
+}
+
+.message {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
