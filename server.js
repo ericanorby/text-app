@@ -145,10 +145,14 @@ app.get("/api/groups/:id", function(req, res){
 
 app.post("/api/groups/:id/add", function(req,res){
   Group.findOne({_id: req.params.id}).then(function(group){
-    //check to see if user is already a member
     var proceed = true
     if (group.users.length >= 9) {
       proceed = false
+    }
+    //check to see if user is already a member
+    if (group.creator == req.body.user._id){
+      proceed = false
+      res.json({success: false, message: "User is already a member."})
     }
     group.users.forEach((user) => {
       if (user == req.body.user._id){
@@ -180,11 +184,11 @@ app.post("/api/groups/:id/add", function(req,res){
 app.post("/api/groups/:id/newmessage", function(req, res){
   Group.findOne({_id: req.params.id}).then(function(group){
     if (group.messages.length >= 6) {
-      console.log("too many messages!")
+      return res.json({message: "You can't have more than 6 messages at a time."})
     }
     else {
       var newMessage = new Message({
-        content: req.body.content
+        content: req.body.message.content
       })
       newMessage.save(function(err, message){
         if (err) {

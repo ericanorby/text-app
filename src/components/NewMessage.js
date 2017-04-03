@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import $ from 'jquery'
 
 class NewMessage extends Component {
   constructor(props){
@@ -18,27 +18,22 @@ class NewMessage extends Component {
   handleSubmit(event){
     event.preventDefault()
     let content = this.state.content.trim()
-    let group = this.props.group
-    axios.post(`http://localhost:3001/api/groups/${group._id}/newmessage`, {content})
-    .then((res) => {
-      console.log(res.data)
+    if (!content){
+      return;
+    }
+    this.props.onSubmitMsg({content})
+    this.setState({
+      content: ""
     })
-    .catch((err) => {
-      console.log(err);
-    })
-    window.location.reload()
+    $("#message-field").val("")
   }
 
   render(){
     return(
       <div>
         <form onSubmit={(e) => {this.handleSubmit(e)}}>
-          <div>
-              <input type="text" placeholder="type message here" onChange={(e) => {this.handleContent(e)}} />
-          </div>
-          <div>
-              <button type="submit">Create</button>
-          </div>
+          <input id="message-field" type="text" placeholder="type message here" onChange={(e) => {this.handleContent(e)}} />
+          <button type="submit">Create</button>
         </form>
       </div>
     )

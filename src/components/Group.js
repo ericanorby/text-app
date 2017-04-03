@@ -5,7 +5,7 @@ import '../group.css';
 //import components
 import Search from './Search'
 import Messages from './Messages'
-import NewMessage from './NewMessage'
+
 
 class Group extends Component {
   constructor(props){
@@ -13,19 +13,22 @@ class Group extends Component {
     this.state = {
       group: this.props.location.state.selected,
       creator: {},
-      members: [],
-      messages: []
+      members: []
     }
+    this.loadDataFromServer = this.loadDataFromServer.bind(this)
   }
-  componentDidMount(){
+  loadDataFromServer(){
     axios.get(`http://localhost:3001/api/groups/${this.state.group._id}`).then((res) => {
       this.setState({
         creator: res.data.creator,
-        members: res.data.members,
-        messages: res.data.messages
+        members: res.data.members
       })
     })
   }
+  componentDidMount(){
+    this.loadDataFromServer()
+  }
+
   render(){
     let members = this.state.members.map((user, index) => {
       return(
@@ -35,22 +38,23 @@ class Group extends Component {
       )
     })
     return(
-      <div className="flex">
-        <div>
+      <div className="group">
+        <div className="group-info">
           <div className="group-title">
             <h1>{this.state.group.title}</h1>
-            <p>Created by: {this.state.creator.firstname} {this.state.creator.lastname}</p>
           </div>
-          <div className="flex">
+          <div className="members">
             <div>
               <h2>Members:</h2>
+              <p>{this.state.creator.firstname} {this.state.creator.lastname} (creator)</p>
               {members}
             </div>
-            <Search group={this.state.group} />
+            <Search reload={() => this.loadDataFromServer()} group={this.state.group} />
           </div>
         </div>
-        <NewMessage group={this.state.group} />
-        <Messages messages={this.state.messages} />
+        <div>
+          <Messages group={this.state.group} />
+        </div>
       </div>
     )
   }

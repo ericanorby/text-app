@@ -7,10 +7,10 @@ class Search extends Component {
     super(props)
     this.state = {
       input: "",
-      result: "",
-      flash: "",
-      searched: false
+      result: null,
+      flash: ""
     }
+    this.clearFlash = this.clearFlash.bind(this)
   }
 
   handleSearchInput(event){
@@ -25,12 +25,17 @@ class Search extends Component {
     axios.post("http://localhost:3001/api/users/search", {input})
     .then((res) => {
       this.setState({
-        result: res.data,
-        searched: true
+        result: res.data
       })
     })
     .catch((err) => {
       console.log(err);
+    })
+  }
+
+  clearFlash(){
+    this.setState({
+      flash: ""
     })
   }
 
@@ -43,6 +48,8 @@ class Search extends Component {
       this.setState({
         flash: res.data.message
       })
+      this.props.reload()
+      setTimeout(this.clearFlash, 5000)
     })
     .catch((err) => {
       console.log(err);
@@ -51,18 +58,18 @@ class Search extends Component {
 
   render(){
     var results = null
-    if (this.state.searched){
+    if (this.state.result) {
       results = <div className="results">{this.state.result.firstname} <button onClick={(e) => {this.handleAddUser(e)}}>Add this user</button></div>
     }
     return(
       <div className="search-box">
-        <h2>Add new member:</h2>
-        {this.state.flash}
+        <h4>Add new member:</h4>
         <form onSubmit={(e) => {this.handleSearchQuery(e)}}>
-        <input type="text" placeholder="phone number" onChange={(e) => {this.handleSearchInput(e)}} />
-        <button type="submit">Submit</button>
+          <input type="text" placeholder="phone number" onChange={(e) => {this.handleSearchInput(e)}} />
+          <button type="submit"><i className="fa fa-search" aria-hidden="true"></i></button>
         </form>
         {results}
+        {this.state.flash}
       </div>
     )
   }

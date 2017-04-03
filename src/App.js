@@ -29,7 +29,8 @@ class App extends Component {
     super(props)
     this.state = {
       user: {},
-      loggedIn: false
+      loggedIn: false,
+      refresh: false
     }
   }
 
@@ -46,24 +47,23 @@ class App extends Component {
   }
 
   render() {
-      var isLoggedIn = this.state.loggedIn
-      var toggleLink = null
-      var toggleLink2 = null
-      if (isLoggedIn){
-        toggleLink = <Link to="/logout">Log Out</Link>
-        toggleLink2 = <Link to="/profile">Profile</Link>
-      } else {
-        toggleLink = <Link to="/login">Log In</Link>
-        toggleLink2 = <Link to="/signup">Sign Up</Link>
-      }
+      // var isLoggedIn = this.state.loggedIn
+      // var toggleLink = null
+      // var toggleLink2 = null
+      // if (isLoggedIn){
+      //   toggleLink = <Link to="/logout">Log Out</Link>
+      //   toggleLink2 = <Link to="/profile">Profile</Link>
+      // } else {
+      //   toggleLink = <Link to="/login">Log In</Link>
+      //   toggleLink2 = <Link to="/signup">Sign Up</Link>
+      // }
 
     return (
       <Router>
         <div>
           <nav>
             <Link to="/about">About</Link>
-            {toggleLink2}
-            {toggleLink}
+            <Link to="/profile">Profile</Link>
             <h1>Text App</h1>
           </nav>
           <main>

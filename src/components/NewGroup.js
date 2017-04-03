@@ -21,12 +21,14 @@ class NewGroup extends Component {
     let creator = this.props.user
     axios.post("http://localhost:3001/api/group/new", {title, creator})
     .then((res) => {
-      console.log(res.data)
+      this.setState({
+        title: ""
+      })
+      this.props.reload()
     })
     .catch((err) => {
       console.log(err);
     })
-    window.location.reload()
   }
 
   render(){

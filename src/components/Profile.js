@@ -10,11 +10,11 @@ class Profile extends Component {
     super(props)
     this.state = {
       user: {},
-      groups: [],
-      refresh: false
+      groups: []
     }
+    this.loadGroupsFromServer = this.loadGroupsFromServer.bind(this)
   }
-  componentDidMount(){
+  loadGroupsFromServer(){
     axios.get("http://localhost:3001/api/profile").then((res) => {
       this.setState({
         user: res.data.user,
@@ -22,6 +22,10 @@ class Profile extends Component {
       })
     })
   }
+  componentDidMount(){
+    this.loadGroupsFromServer()
+  }
+
   render(){
     var groups = this.state.groups.map((group, index) => {
       let pathname = `/groups/${group._id}`
@@ -46,7 +50,7 @@ class Profile extends Component {
           {groups}
           <div className="group-box new-group">
             <p>Add a new group</p>
-            <NewGroup user={this.state.user} />
+            <NewGroup reload={() => this.loadGroupsFromServer()} user={this.state.user} />
           </div>
         </div>
       </div>
