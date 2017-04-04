@@ -29,8 +29,7 @@ class App extends Component {
     super(props)
     this.state = {
       user: {},
-      loggedIn: false,
-      refresh: false
+      loggedIn: false
     }
   }
 
@@ -64,6 +63,8 @@ class App extends Component {
           <nav>
             <Link to="/about">About</Link>
             <Link to="/profile">Profile</Link>
+            <Link to="/login">Log In</Link>
+            <Link to="/signup">Sign Up</Link>
             <h1>Text App</h1>
           </nav>
           <main>

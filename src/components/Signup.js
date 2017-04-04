@@ -9,8 +9,7 @@ class Signup extends Component {
       password: "",
       firstname: "",
       lastname: "",
-      phone: "",
-      username: ""
+      phone: ""
     }
   }
 
@@ -44,19 +43,14 @@ class Signup extends Component {
     })
   }
 
-  handleUsername(event){
-    this.setState({
-      username: event.target.value
-    })
-  }
-
   handleSubmit(event){
     event.preventDefault()
     let email = this.state.email.trim()
     let password = this.state.password.trim()
+    let firstname = this.state.firstname.trim()
+    let lastname = this.state.lastname.trim()
     let phone = this.state.phone.trim()
-    let username = this.state.username.trim()
-    axios.post("http://localhost:3001/api/signup", {email, password, phone, username})
+    axios.post("http://localhost:3001/api/signup", {email, password, firstname, lastname, phone})
     .then((response) => {
       console.log(response)
       this.setState({email: "", password: ""})
@@ -72,9 +66,6 @@ class Signup extends Component {
         <form onSubmit={(e) => {this.handleSubmit(e)}}>
           <div>
               <input type="text" placeholder="email" onChange={(e) => {this.handleEmail(e)}} />
-          </div>
-          <div>
-              <input type="text" placeholder="username" onChange={(e) => {this.handleUsername(e)}} />
           </div>
           <div>
               <input type="password" placeholder="password" onChange={(e) => {this.handlePassword(e)}} />

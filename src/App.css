@@ -1,14 +1,30 @@
 nav {
-  background: #f4f4f4;
-  border-bottom: 1px solid lightgray;
   padding: 20px;
-  text-align: center;
+}
+
+nav h1 {
+  font-size: 40px;
+  margin: 0px;
+  font-family: 'Righteous', cursive;
+  color: rgb(212, 97, 32);
 }
 
 nav a {
   margin: 0 20px;
+  float: right;
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+nav a:hover {
+  opacity: 0.5;
 }
 
 main {
-  padding: 20px;
+  padding: 30px;
+  background: #f4f4f4;
+  margin: 30px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
 }

@@ -17,14 +17,27 @@ class Group extends Component {
     }
     this.loadDataFromServer = this.loadDataFromServer.bind(this)
   }
+
   loadDataFromServer(){
-    axios.get(`http://localhost:3001/api/groups/${this.state.group._id}`).then((res) => {
+    axios.get(`http://localhost:3001/api/groups/${this.state.group._id}`)
+    .then((res) => {
       this.setState({
         creator: res.data.creator,
         members: res.data.members
       })
     })
+    .catch((err) => {
+      console.log(err)
+    })
   }
+
+  handleDelete(){
+    axios.delete(`http://localhost:3001/api/groups/${this.state.group._id}`)
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
   componentDidMount(){
     this.loadDataFromServer()
   }
@@ -38,23 +51,26 @@ class Group extends Component {
       )
     })
     return(
-      <div className="group">
-        <div className="group-info">
-          <div className="group-title">
-            <h1>{this.state.group.title}</h1>
-          </div>
-          <div className="members">
-            <div>
-              <h2>Members:</h2>
-              <p>{this.state.creator.firstname} {this.state.creator.lastname} (creator)</p>
-              {members}
+      <div>
+        <div className="group">
+          <div className="group-info">
+            <div className="group-title">
+              <h1>{this.state.group.title}</h1>
             </div>
-            <Search reload={() => this.loadDataFromServer()} group={this.state.group} />
+            <div className="members">
+              <div>
+                <h2>Members:</h2>
+                <p>{this.state.creator.firstname} {this.state.creator.lastname} (creator)</p>
+                {members}
+              </div>
+              <Search reload={() => this.loadDataFromServer()} group={this.state.group} />
+            </div>
+          </div>
+          <div>
+            <Messages group={this.state.group} />
           </div>
         </div>
-        <div>
-          <Messages group={this.state.group} />
-        </div>
+        <button onClick={(e) => this.handleDelete(e)}>Delete Group</button>
       </div>
     )
   }

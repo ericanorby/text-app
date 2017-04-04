@@ -31,7 +31,6 @@ class Login extends Component {
     axios.post("http://localhost:3001/api/login", {email, password})
     .then((res) => {
       console.log(res.data)
-
     })
     .catch((err) => {
       console.log(err);

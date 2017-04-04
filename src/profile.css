@@ -1,26 +1,43 @@
-.user-profile {
+.profile {
   text-align: center;
+}
+
+.user-profile {
+  border-bottom: 1px solid lightgray;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .group-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .group-box {
-  background: lightgray;
-  border: 1px solid gray;
-  border-radius: 8px;
+  background: #2a2287;
+  color: white;
+  border: 1px solid lightgray;
+  border-radius: 10px;
   padding: 10px;
-  margin: 10px;
   height: 150px;
-  width: 300px;
+  width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+.group-box h3 {
+  font-size: 24px;
+}
+
+a {
+  margin: 10px;
+  text-decoration: none;
+}
+
 .new-group {
-  background: #f4f4f4;
+  background: rgba(42, 34, 135, 0.5);
+  margin: 10px;
 }

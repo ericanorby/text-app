@@ -32,12 +32,8 @@ class NewGroup extends Component {
     return(
       <div>
         <form onSubmit={(e) => {this.handleSubmit(e)}}>
-          <div>
               <input type="text" id="title-field" placeholder="title" onChange={(e) => {this.handleTitle(e)}} />
-          </div>
-          <div>
               <button type="submit">Create</button>
-          </div>
         </form>
       </div>
     )

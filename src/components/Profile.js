@@ -46,26 +46,25 @@ class Profile extends Component {
     var groups = this.state.groups.map((group, index) => {
       let pathname = `/groups/${group._id}`
       return(
-        <div key={index} className="group-box">
-          <Link to={{pathname, state: {selected: group}}}>
+        <Link key={index} to={{pathname, state: {selected: group}}}>
+        <div className="group-box">
           <h3>{group.title}</h3>
-          </Link>
           <p>{group.users.length + 1} Members</p>
         </div>
+        </Link>
       )
     })
     return(
-      <div>
+      <div className="profile">
         <div className="user-profile">
-          <h1>User Profile</h1>
           <h3>{this.state.user.email}</h3>
           <h3>{this.state.user.firstname} {this.state.user.lastname}</h3>
         </div>
-        <h1>Groups you belong to:</h1>
+        <h1>Your Groups</h1>
         <div className="group-container">
           {groups}
           <div className="group-box new-group">
-            <p>Add a new group</p>
+            <p>Create a new group</p>
             <NewGroup submitGroup={(e) => this.handleNewGroup(e)} user={this.state.user} />
           </div>
         </div>

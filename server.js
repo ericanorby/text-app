@@ -1,6 +1,5 @@
 "use strict"
 
-
 const express = require("express")
 const app = express()
 const mongoose = require("./db/connection.js")
@@ -8,11 +7,11 @@ const port = process.env.API_PORT || 3001
 const cookie = require("cookie-parser")
 const parser = require("body-parser")
 const jwt = require("express-jwt")
-// const passport = require("passport")
+const passport = require("passport")
 const session = require("express-session")
 const MongoStore = require('connect-mongo')(session)
 // const auth = require("./config/auth.js")
-
+require("./config/passport")(passport)
 const User = require("./db/models.js").User
 const Group = require("./db/models.js").Group
 const Message = require("./db/models.js").Message
@@ -36,68 +35,50 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-// var auth = function(req,res,next){
-//
-// })
+app.use(passport.initialize())
+app.use(passport.session())
 
 // const authCheck = jwt({
 //   secret: auth.secret,
 //   audience: auth.audience
 // })
 
-app.get('/api', function(req, res){
-  if (req.session.user == undefined){
-    console.log("user not in session yet")
-  } else {
-    console.log("user in session: " + req.session.user)
-  }
-})
-
-app.post('/api/signup', function(req, res) {
-  if(!req.body.email || !req.body.password) {
-    res.json({ success: false, message: 'Please enter email and password.' });
-  } else {
-    var newUser = new User({
-      email: req.body.email,
-      password: req.body.password
-    });
-
-    // Attempt to save the user
-    newUser.save(function(err) {
-      if (err) {
-        return res.json({ success: false, message: 'That email address already exists.'});
-      }
-      res.json({ success: true, message: 'Successfully created new user.' });
-    });
-  }
-});
-
-app.post('/api/login', function(req, res) {
-  console.log(req.session)
-  console.log("email set to: " + req.body.email)
-  req.session.user = req.body.email
-  req.session.save()
-  console.log("session value set: " + req.session.user)
-
-  User.findOne({
-    email: req.body.email
-  }, function(err, user) {
-    if (err){
-      console.log(err)
-    }
-    // res.json(user)
-    console.log(user)
-  })
-})
-
-// app.get("/api/profile", passport.authenticate('jwt', { session: false }), function(req, res) {
-//   // res.send('It worked! User id is: ' + req.user._id + '.');
-//   res.json(req.user)
+// app.post('/api/signup', function(req, res) {
+//   if(!req.body.email || !req.body.password) {
+//     res.json({ success: false, message: 'Please enter email and password.' });
+//   } else {
+//     var newUser = new User({
+//       email: req.body.email,
+//       password: req.body.password
+//     });
+//
+//     // Attempt to save the user
+//     newUser.save(function(err) {
+//       if (err) {
+//         return res.json({ success: false, message: 'That email address already exists.'});
+//       }
+//       res.json({ success: true, message: 'Successfully created new user.' });
+//     });
+//   }
 // });
+
+app.post('/api/signup',
+  passport.authenticate("local-signup"), function(req, res){
+    console.log(req.user)
+    currentUser = req.user
+  }
+)
+
+app.post('/api/login',
+  passport.authenticate("local-login"), function(req, res){
+    console.log(req.user)
+    currentUser = req.user
+  }
+)
 
 app.get("/api/profile", function(req,res){
   // console.log("session value is: " + req.session.email)
-  User.findOne({email: "sandy@email.com"}).populate('groups').exec(function(err, user){
+  User.findOne({email: "patrick@email.com"}).populate('groups').exec(function(err, user){
     res.json({
       user: user,
       groups: user.groups
@@ -141,6 +122,16 @@ app.get("/api/groups/:id", function(req, res){
       members: group.users,
       messages: group.messages
     })
+  })
+})
+
+app.delete("/api/groups/:id", function(req, res){
+  Group.remove({_id: req.params.id}, function(err){
+    if (err) {
+      console.log(err)
+    } else {
+      console.log("deleted successfully")
+    }
   })
 })
 
