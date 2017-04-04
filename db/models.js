@@ -13,18 +13,18 @@ const UserSchema = new mongoose.Schema(
   }
 )
 
+const MessageSchema = new mongoose.Schema(
+  {
+    content: String
+  }
+)
+
 const GroupSchema = new mongoose.Schema(
   {
     title: String,
     creator: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
     users: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}],
-    messages: [{type: mongoose.Schema.Types.ObjectId, ref: "Message"}]
-  }
-)
-
-const MessageSchema = new mongoose.Schema(
-  {
-    content: String
+    messages: [MessageSchema]
   }
 )
 

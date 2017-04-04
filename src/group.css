@@ -2,6 +2,7 @@
   border: 1px solid lightgray;
   background: white;
   width: 500px;
+  box-shadow: 3px 3px 5px lightgray;
 }
 
 .group-title {
@@ -16,6 +17,7 @@
 
 .group {
   display: flex;
+  align-items: flex-start;
 }
 
 .group > * {
@@ -32,7 +34,20 @@ button, input {
   margin: 0 5px;
 }
 
-input:focus {
+button {
+  background: #f1a819;
+  border: 1px solid inset;
+  border-color: rgba(232, 179, 21, 0.3);
+  color: white;
+  border-radius: 5px;
+  padding: 6px 10px;
+}
+
+#delete-group-btn {
+  margin-top: 30px;
+}
+
+input:focus, button:focus {
   outline: none;
 }
 
@@ -46,8 +61,9 @@ input:focus {
 }
 
 .message {
-  border: 1px solid gray;
-  background: lightblue;
+  border: 1px solid #2a939f;
+  color: white;
+  background: #2a939f;
   border-radius: 5px;
   padding: 0 10px;
   margin: 10px;

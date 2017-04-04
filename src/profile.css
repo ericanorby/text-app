@@ -15,8 +15,8 @@
 }
 
 .group-box {
-  background: #2a2287;
-  color: white;
+  background: white;
+  color: black;
   border: 1px solid lightgray;
   border-radius: 10px;
   padding: 10px;
@@ -38,6 +38,6 @@ a {
 }
 
 .new-group {
-  background: rgba(42, 34, 135, 0.5);
+  /*background: rgba(42, 34, 135, 0.5);*/
   margin: 10px;
 }

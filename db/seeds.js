@@ -62,34 +62,18 @@ patrick.save()
 squidward.save()
 sandy.save()
 
-var message1 = new Message({
-  content: "baby's first message"
-})
-
-var message2 = new Message({
-  content: "baby's second message"
-})
-
-var message3 = new Message({
-  content: "ooohhh life is good"
-})
-
-message1.save()
-message2.save()
-message3.save()
-
 var group1 = new Group({
   title: "Spongebob's awesome group",
   creator: spongebob._id,
   users: [squidward._id, sandy._id],
-  messages: [message1._id, message2._id]
+  messages: []
 })
 
 var group2 = new Group({
   title: "Patrick's group is better",
   creator: patrick._id,
   users: [sandy._id],
-  messages: [message3._id]
+  messages: []
 })
 
 group1.save(function(err){

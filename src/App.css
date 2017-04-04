@@ -6,7 +6,7 @@ nav h1 {
   font-size: 40px;
   margin: 0px;
   font-family: 'Righteous', cursive;
-  color: rgb(212, 97, 32);
+  color: rgb(233, 93, 49);
 }
 
 nav a {
@@ -21,8 +21,13 @@ nav a:hover {
   opacity: 0.5;
 }
 
+/*body {
+  background: #201e36;
+}*/
+
 main {
   padding: 30px;
+  min-height: 70vh;
   background: #f4f4f4;
   margin: 30px;
   border: 1px solid lightgray;

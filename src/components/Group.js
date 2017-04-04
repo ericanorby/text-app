@@ -70,7 +70,7 @@ class Group extends Component {
             <Messages group={this.state.group} />
           </div>
         </div>
-        <button onClick={(e) => this.handleDelete(e)}>Delete Group</button>
+        <button id="delete-group-btn" onClick={(e) => this.handleDelete(e)}>Delete Group</button>
       </div>
     )
   }

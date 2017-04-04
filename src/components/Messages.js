@@ -28,11 +28,23 @@ class Messages extends Component {
         messages: newMessages
       })
     }
-    axios.post(`http://localhost:3001/api/groups/${this.props.group._id}/newmessage`, message)
+    axios.post(`http://localhost:3001/api/groups/${this.props.group._id}/messages`, message)
     .then((res) => {
       this.setState({
         flash: res.data.message
       })
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  handleDeleteMessage(event, messageId){
+    event.preventDefault()
+    axios({
+      method: 'delete',
+      url: `http://localhost:3001/api/groups/${this.props.group._id}/messages`,
+      data: {id: messageId}
     })
     .catch((err) => {
       console.log(err);
@@ -48,6 +60,7 @@ class Messages extends Component {
       return(
         <div key={index} className="message">
           <p>{message.content}</p>
+          <button onClick={(e) => this.handleDeleteMessage(e, message._id)}>Delete</button>
         </div>
       )
     })

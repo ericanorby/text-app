@@ -173,7 +173,7 @@ app.post("/api/groups/:id/add", function(req,res){
   })
 })
 
-app.post("/api/groups/:id/newmessage", function(req, res){
+app.post("/api/groups/:id/messages", function(req, res){
   Group.findOne({_id: req.params.id}).then(function(group){
     if (group.messages.length >= 6) {
       return res.json({message: "You can't have more than 6 messages at a time."})
@@ -195,6 +195,21 @@ app.post("/api/groups/:id/newmessage", function(req, res){
       })
     }
   })
+})
+
+app.delete("/api/groups/:id/messages", function(req, res){
+  Group.findOneAndUpdate({_id: req.params.id},
+    {
+      $pull: {
+        messages: {_id: req.body.id}
+      }
+    },
+    function(err){
+      if (err){
+        console.log(err)
+      }
+    }
+  )
 })
 
 
