@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
 
+
 class NewMessage extends Component {
   constructor(props){
     super(props)
     this.state = {
-      content: ""
+      content: "",
+      datetime: "",
+      date: "",
+      time: ""
     }
   }
 
@@ -15,13 +19,32 @@ class NewMessage extends Component {
     })
   }
 
+  handleDateTime(event){
+    this.setState({
+      datetime: event.target.value
+    })
+  }
+  //
+  // handleDate(event){
+  //   this.setState({
+  //     date: event.target.value
+  //   })
+  // }
+  //
+  // handleTime(event){
+  //   this.setState({
+  //     time: event.target.value
+  //   })
+  // }
+
   handleSubmit(event){
     event.preventDefault()
     let content = this.state.content.trim()
-    if (!content){
+    let datetime = this.state.datetime
+    if (!content || !datetime){
       return;
     }
-    this.props.onSubmitMsg({content})
+    this.props.onSubmitMsg({content, datetime})
     this.setState({
       content: ""
     })
@@ -33,7 +56,9 @@ class NewMessage extends Component {
       <div>
         <form onSubmit={(e) => {this.handleSubmit(e)}}>
           <input id="message-field" type="text" placeholder="type message here" onChange={(e) => {this.handleContent(e)}} />
-          <button type="submit">Create</button>
+          <input type="datetime-local" onChange={(e) => {this.handleDateTime(e)}}/>
+
+        <button type="submit">Create</button>
         </form>
       </div>
     )

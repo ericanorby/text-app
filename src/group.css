@@ -1,8 +1,12 @@
 .group-info {
-  border: 1px solid lightgray;
-  background: white;
+  /*border: 1px solid lightgray;*/
+  /*background: #332a47;*/
+  background: #a2c158;
+  color: white;
   width: 500px;
-  box-shadow: 3px 3px 5px lightgray;
+  border: 0px;
+  border-radius: 10px;
+  /*box-shadow: 3px 3px 5px gray;*/
 }
 
 .group-title {
@@ -35,16 +39,29 @@ button, input {
 }
 
 button {
-  background: #f1a819;
-  border: 1px solid inset;
-  border-color: rgba(232, 179, 21, 0.3);
+  background: lightgray;
+  /*border: 1px solid inset;*/
+  /*border-color: rgba(232, 179, 21, 0.3);*/
   color: white;
   border-radius: 5px;
   padding: 6px 10px;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
+.delete-msg-btn {
+  color: darkgray;
+  border: none;
+  background: none;
+}
+
 #delete-group-btn {
   margin-top: 30px;
+  color: red;
+  border: none;
+  background: none;
 }
 
 input:focus, button:focus {
@@ -61,10 +78,14 @@ input:focus, button:focus {
 }
 
 .message {
-  border: 1px solid #2a939f;
-  color: white;
-  background: #2a939f;
-  border-radius: 5px;
+  border-bottom: 1px solid lightgray;
+  /*border-bottom: 1px solid #2a939f;*/
+  /*color: black;*/
+  /*background: #2a939f;*/
+  /*border-radius: 5px;*/
   padding: 0 10px;
-  margin: 10px;
+  /*margin: 10px;*/
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

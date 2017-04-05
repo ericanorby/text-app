@@ -15,21 +15,31 @@
 }
 
 .group-box {
-  background: white;
-  color: black;
-  border: 1px solid lightgray;
+  background: #a2c158;
+  color: white;
+  border: 0px;
   border-radius: 10px;
   padding: 10px;
-  height: 150px;
+  height: 120px;
   width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.group-box p {
+  /*position: absolute;*/
+  /*left: 20px;*/
+  color: #d6f291;
+  /*bottom: 0;*/
 }
 
 .group-box h3 {
   font-size: 24px;
+  margin: 0;
+  /*border-bottom: 1px solid gray;*/
 }
 
 a {
@@ -38,6 +48,25 @@ a {
 }
 
 .new-group {
-  /*background: rgba(42, 34, 135, 0.5);*/
+  /*border: 1px solid lightgray;*/
+  background: rgba(162, 193, 88, 0.3);
   margin: 10px;
+}
+
+.new-group p {
+  color: #a2c158;
+  font-size: 18px;
+}
+
+#group-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#new-group-btn {
+  background: none;
+  border: none;
+  font-size: 30px;
+  margin: 0;
 }

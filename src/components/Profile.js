@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import '../profile.css';
 import NewGroup from './NewGroup'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+
 
 
 class Profile extends Component {
@@ -49,7 +51,7 @@ class Profile extends Component {
         <Link key={index} to={{pathname, state: {selected: group}}}>
         <div className="group-box">
           <h3>{group.title}</h3>
-          <p>{group.users.length + 1} Members</p>
+          <p>{group.users.length + 1} <i className="fa fa-user" aria-hidden="true"></i></p>
         </div>
         </Link>
       )

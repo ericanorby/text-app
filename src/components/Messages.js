@@ -21,30 +21,34 @@ class Messages extends Component {
   }
 
   handleNewMessage(message){
-    if (this.state.messages.length < 6){
-      let messages = this.state.messages
-      let newMessages = messages.concat([message])
-      this.setState({
-        messages: newMessages
-      })
-    }
     axios.post(`http://localhost:3001/api/groups/${this.props.group._id}/messages`, message)
     .then((res) => {
-      this.setState({
-        flash: res.data.message
-      })
+        let messages = this.state.messages
+        let newMessages = messages.concat([res.data])
+        this.setState({
+          messages: newMessages,
+          flash: res.data.message
+        })
     })
     .catch((err) => {
       console.log(err);
     })
   }
 
-  handleDeleteMessage(event, messageId){
+  handleDeleteMessage(event, index, messageId){
+    // console.log(index)
+    // console.log(messageId)
     event.preventDefault()
+    this.setState({
+      messages: this.state.messages.filter((_, i) => i !== index)
+    })
     axios({
       method: 'delete',
       url: `http://localhost:3001/api/groups/${this.props.group._id}/messages`,
       data: {id: messageId}
+    })
+    .then(() => {
+
     })
     .catch((err) => {
       console.log(err);
@@ -60,7 +64,8 @@ class Messages extends Component {
       return(
         <div key={index} className="message">
           <p>{message.content}</p>
-          <button onClick={(e) => this.handleDeleteMessage(e, message._id)}>Delete</button>
+          <p>{message.datetime}</p>
+          <button className="delete-msg-btn" onClick={(e) => this.handleDeleteMessage(e, index, message._id)}><i className="fa fa-times" aria-hidden="true"></i></button>
         </div>
       )
     })

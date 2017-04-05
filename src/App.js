@@ -17,7 +17,7 @@ import './App.css';
 // }
 
 //import components
-import About from './components/About'
+import Home from './components/Home'
 import Profile from './components/Profile'
 import Login from './components/Login'
 import Logout from './components/Logout'
@@ -61,18 +61,21 @@ class App extends Component {
       <Router>
         <div>
           <nav>
-            <Link to="/about">About</Link>
+            <Link to="/">Home</Link>
             <Link to="/profile">Profile</Link>
             <Link to="/login">Log In</Link>
             <Link to="/signup">Sign Up</Link>
-            <h1>Text App</h1>
-          </nav>
+            <div>
+              <img src="https://www.iconexperience.com/_img/o_collection_png/green_dark_grey/512x512/plain/clock.png" />
+              <h1>TextSet</h1>
+            </div>
+        </nav>
           <main>
             <Route
-              path="/about"
+              exact path="/"
               render={() => {
                 return(
-                  <About />
+                  <Home />
                 )
               }}
             />

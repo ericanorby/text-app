@@ -3,16 +3,25 @@ nav {
 }
 
 nav h1 {
-  font-size: 40px;
+  font-size: 50px;
   margin: 0px;
-  font-family: 'Righteous', cursive;
-  color: rgb(233, 93, 49);
+  font-family: 'Work Sans', sans-serif;
+  color: black;
+}
+
+nav div {
+  display: flex;
+}
+
+nav img {
+  height: 60px;
+  margin: 0 10px;
 }
 
 nav a {
   margin: 0 20px;
   float: right;
-  color: black;
+  color: gray;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -28,8 +37,7 @@ nav a:hover {
 main {
   padding: 30px;
   min-height: 70vh;
-  background: #f4f4f4;
+  /*background: rgba(255,255,255,0.7);*/
   margin: 30px;
-  border: 1px solid lightgray;
   border-radius: 8px;
 }

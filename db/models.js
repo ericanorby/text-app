@@ -15,7 +15,8 @@ const UserSchema = new mongoose.Schema(
 
 const MessageSchema = new mongoose.Schema(
   {
-    content: String
+    content: String,
+    datetime: {type: Date}
   }
 )
 

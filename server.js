@@ -12,6 +12,7 @@ const session = require("express-session")
 const MongoStore = require('connect-mongo')(session)
 // const auth = require("./config/auth.js")
 require("./config/passport")(passport)
+var schedule = require('node-schedule')
 const User = require("./db/models.js").User
 const Group = require("./db/models.js").Group
 const Message = require("./db/models.js").Message
@@ -37,6 +38,13 @@ app.use(session({
 
 app.use(passport.initialize())
 app.use(passport.session())
+
+// var date = new Date(2017, 3, 5, 15, 2, 0)
+// console.log(date)
+//
+// var j = schedule.scheduleJob(date, function(){
+//   console.log("It is 3:02 pm")
+// })
 
 // const authCheck = jwt({
 //   secret: auth.secret,
@@ -180,12 +188,15 @@ app.post("/api/groups/:id/messages", function(req, res){
     }
     else {
       var newMessage = new Message({
-        content: req.body.content
+        content: req.body.content,
+        datetime: req.body.datetime
       })
       newMessage.save(function(err, message){
         if (err) {
           console.log(err)
         }
+        res.json(message)
+        console.log(message.datetime.getTime())
         group.messages.push(message)
         group.save(function(err){
           if (err) {
@@ -197,6 +208,22 @@ app.post("/api/groups/:id/messages", function(req, res){
   })
 })
 
+function cycleMessages(){
+  Message.find({}).then(function(messages){
+    console.log(messages)
+  })
+}
+
+cycleMessages()
+
+// function createJob(message){
+//   // var j = schedule.scheduleJob(message.datetime, function(){
+//   //   console.log("OMG it worked")
+//   // })
+//   console.log(message.datetime)
+// }
+
+
 app.delete("/api/groups/:id/messages", function(req, res){
   Group.findOneAndUpdate({_id: req.params.id},
     {
@@ -205,9 +232,16 @@ app.delete("/api/groups/:id/messages", function(req, res){
       }
     },
     function(err){
-      if (err){
+      if (err) {
         console.log(err)
       }
+      Message.remove({_id: req.body.id}, function(err){
+        if (err) {
+          console.log(err)
+        } else {
+          console.log("deleted successfully")
+        }
+      })
     }
   )
 })

@@ -45,7 +45,9 @@ class Group extends Component {
   render(){
     let members = this.state.members.map((user, index) => {
       return(
+
         <div key={index}>
+
           <p>{user.firstname} {user.lastname}</p>
         </div>
       )
