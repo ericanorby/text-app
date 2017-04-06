@@ -15,12 +15,13 @@
 }
 
 .group-box {
-  background: #a2c158;
+  /*background: #a2c158;*/
+  background: rgb(115, 102, 148);
   color: white;
   border: 0px;
   border-radius: 10px;
-  padding: 10px;
-  height: 120px;
+  padding: 15px;
+  /*height: 120px;*/
   width: 250px;
   display: flex;
   flex-direction: column;
@@ -49,12 +50,12 @@ a {
 
 .new-group {
   /*border: 1px solid lightgray;*/
-  background: rgba(162, 193, 88, 0.3);
+  background: rgba(115, 102, 148, 0.3);
   margin: 10px;
 }
 
 .new-group p {
-  color: #a2c158;
+  color: rgb(115, 102, 148);
   font-size: 18px;
 }
 
@@ -67,6 +68,7 @@ a {
 #new-group-btn {
   background: none;
   border: none;
+  color: white;
   font-size: 30px;
   margin: 0;
 }

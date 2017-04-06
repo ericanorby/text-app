@@ -46,19 +46,20 @@ class NewMessage extends Component {
     }
     this.props.onSubmitMsg({content, datetime})
     this.setState({
-      content: ""
+      content: "",
+      datetime: ""
     })
     $("#message-field").val("")
+    $("#date-field").val("")
   }
 
   render(){
     return(
-      <div>
+      <div class="new-msg">
         <form onSubmit={(e) => {this.handleSubmit(e)}}>
-          <input id="message-field" type="text" placeholder="type message here" onChange={(e) => {this.handleContent(e)}} />
-          <input type="datetime-local" onChange={(e) => {this.handleDateTime(e)}}/>
-
-        <button type="submit">Create</button>
+          <input id="message-field" type="text" placeholder="Add a message" onChange={(e) => {this.handleContent(e)}} />
+          <input id="date-field" type="datetime-local" onChange={(e) => {this.handleDateTime(e)}}/>
+          <button type="submit" className="new-msg-btn">Create</button>
         </form>
       </div>
     )

@@ -15,8 +15,13 @@ class Home extends Component {
     var time = today.getHours() + ":" + today.getMinutes();
     var datetime = date+' '+time;
     return(
-      <div>
-        {datetime}
+      <div className="homepage">
+        <img src="https://republicwireless.com/static/svg/phone-outline.032fa01316.svg" />
+        <div>
+          <p>The current time is</p>
+          {datetime}
+          <p>When will you receive your next message?</p>
+        </div>
       </div>
     )
   }

@@ -21,23 +21,26 @@ class Messages extends Component {
   }
 
   handleNewMessage(message){
-    axios.post(`http://localhost:3001/api/groups/${this.props.group._id}/messages`, message)
-    .then((res) => {
-        let messages = this.state.messages
-        let newMessages = messages.concat([res.data])
-        this.setState({
-          messages: newMessages,
-          flash: res.data.message
-        })
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    if (this.state.messages.length < 6) {
+      axios.post(`http://localhost:3001/api/groups/${this.props.group._id}/messages`, message)
+      .then((res) => {
+          let messages = this.state.messages
+          let newMessages = messages.concat([res.data])
+          this.setState({
+            messages: newMessages
+          })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    } else {
+      this.setState({
+        flash: "You can't have more than 6 messages at a time."
+      })
+    }
   }
 
   handleDeleteMessage(event, index, messageId){
-    // console.log(index)
-    // console.log(messageId)
     event.preventDefault()
     this.setState({
       messages: this.state.messages.filter((_, i) => i !== index)
@@ -63,18 +66,20 @@ class Messages extends Component {
     let messages = this.state.messages.map((message, index) => {
       return(
         <div key={index} className="message">
-          <p>{message.content}</p>
-          <p>{message.datetime}</p>
+          <div>
+            <p>{message.content}</p>
+            <span>{message.datetime}</span>
+          </div>
           <button className="delete-msg-btn" onClick={(e) => this.handleDeleteMessage(e, index, message._id)}><i className="fa fa-times" aria-hidden="true"></i></button>
         </div>
       )
     })
     return(
-      <div>
-      <h1>Messages</h1>
-      {messages}
-      <NewMessage onSubmitMsg={(e) => this.handleNewMessage(e)} group={this.props.group} />
-      {this.state.flash}
+      <div className="message-container">
+        <h1>Messages</h1>
+        {messages}
+        <NewMessage onSubmitMsg={(e) => this.handleNewMessage(e)} messages={this.state.messages} group={this.props.group} />
+        {this.state.flash}
       </div>
     )
   }

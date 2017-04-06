@@ -1,7 +1,7 @@
 .group-info {
   /*border: 1px solid lightgray;*/
   /*background: #332a47;*/
-  background: #a2c158;
+  background: rgb(115, 102, 148);
   color: white;
   width: 500px;
   border: 0px;
@@ -39,16 +39,27 @@ button, input {
 }
 
 button {
-  background: lightgray;
-  /*border: 1px solid inset;*/
-  /*border-color: rgba(232, 179, 21, 0.3);*/
-  color: white;
+  background: none;
+  color: #d6f291;
+  font-size: 16px;
+  border: 1px solid #d6f291;
   border-radius: 5px;
   padding: 6px 10px;
 }
 
 button:hover {
   cursor: pointer;
+  /*color: black;*/
+  background: black;
+}
+
+.new-msg {
+  display: flex;
+}
+
+.new-msg-btn {
+  color: #b2d754;
+  border-color: #b2d754;
 }
 
 .delete-msg-btn {
@@ -69,22 +80,48 @@ input:focus, button:focus {
 }
 
 #message-field {
-  width: 300px;
+  width: 92%;
+  padding: 8px;
+  margin-bottom: 10px;
 }
+
+/*#date-field {
+  width: 120px;
+}*/
 
 .results {
   margin: 20px 0;
   font-size: 20px;
 }
 
+.message-container h1 {
+  padding-bottom: 20px;
+  margin: 0;
+  /*border-bottom: 1px solid lightgray;*/
+}
+
+
+.message p {
+  font-size: 18px;
+  padding-bottom: 10px;
+  margin: 8px;
+}
+
+.message span {
+  /*background: black;*/
+  color: gray;
+  margin-left: 8px;
+}
+
 .message {
-  border-bottom: 1px solid lightgray;
+  /*border-bottom: 1px solid lightgray;*/
   /*border-bottom: 1px solid #2a939f;*/
   /*color: black;*/
-  /*background: #2a939f;*/
-  /*border-radius: 5px;*/
-  padding: 0 10px;
-  /*margin: 10px;*/
+  border: 1px solid black;
+  /*background: lightgray;*/
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;

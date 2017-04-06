@@ -59,7 +59,7 @@ class Search extends Component {
   render(){
     var results = null
     if (this.state.result) {
-      results = <div className="results">{this.state.result.firstname} <button onClick={(e) => {this.handleAddUser(e)}}>Add this user</button></div>
+      results = <div className="results">{this.state.result.firstname} <button onClick={(e) => {this.handleAddUser(e)}}><i className="fa fa-user-plus" aria-hidden="true"></i></button></div>
     }
     return(
       <div className="search-box">

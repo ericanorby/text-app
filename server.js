@@ -46,30 +46,6 @@ app.use(passport.session())
 //   console.log("It is 3:02 pm")
 // })
 
-// const authCheck = jwt({
-//   secret: auth.secret,
-//   audience: auth.audience
-// })
-
-// app.post('/api/signup', function(req, res) {
-//   if(!req.body.email || !req.body.password) {
-//     res.json({ success: false, message: 'Please enter email and password.' });
-//   } else {
-//     var newUser = new User({
-//       email: req.body.email,
-//       password: req.body.password
-//     });
-//
-//     // Attempt to save the user
-//     newUser.save(function(err) {
-//       if (err) {
-//         return res.json({ success: false, message: 'That email address already exists.'});
-//       }
-//       res.json({ success: true, message: 'Successfully created new user.' });
-//     });
-//   }
-// });
-
 app.post('/api/signup',
   passport.authenticate("local-signup"), function(req, res){
     console.log(req.user)
@@ -184,7 +160,7 @@ app.post("/api/groups/:id/add", function(req,res){
 app.post("/api/groups/:id/messages", function(req, res){
   Group.findOne({_id: req.params.id}).then(function(group){
     if (group.messages.length >= 6) {
-      return res.json({message: "You can't have more than 6 messages at a time."})
+      return;
     }
     else {
       var newMessage = new Message({
@@ -196,7 +172,7 @@ app.post("/api/groups/:id/messages", function(req, res){
           console.log(err)
         }
         res.json(message)
-        console.log(message.datetime.getTime())
+        // console.log(message.datetime.getTime())
         group.messages.push(message)
         group.save(function(err){
           if (err) {
@@ -209,12 +185,19 @@ app.post("/api/groups/:id/messages", function(req, res){
 })
 
 function cycleMessages(){
+  var currentDate = new Date().getTime()
   Message.find({}).then(function(messages){
-    console.log(messages)
+    messages.forEach((msg, i) => {
+      console.log(msg.datetime.getTime())
+      console.log(currentDate)
+      if (currentDate >= msg.datetime.getTime()) {
+        console.log("im firing now")
+      }
+    })
   })
 }
 
-cycleMessages()
+// setInterval(cycleMessages, 20000)
 
 // function createJob(message){
 //   // var j = schedule.scheduleJob(message.datetime, function(){
