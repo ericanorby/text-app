@@ -6,7 +6,6 @@ import NewGroup from './NewGroup'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 
-
 class Profile extends Component {
   constructor(props){
     super(props)

@@ -55,7 +55,7 @@ class NewMessage extends Component {
 
   render(){
     return(
-      <div class="new-msg">
+      <div className="new-msg">
         <form onSubmit={(e) => {this.handleSubmit(e)}}>
           <input id="message-field" type="text" placeholder="Add a message" onChange={(e) => {this.handleContent(e)}} />
           <input id="date-field" type="datetime-local" onChange={(e) => {this.handleDateTime(e)}}/>

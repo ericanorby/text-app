@@ -15,13 +15,11 @@
 }
 
 .group-box {
-  /*background: #a2c158;*/
   background: rgb(115, 102, 148);
   color: white;
   border: 0px;
   border-radius: 10px;
   padding: 15px;
-  /*height: 120px;*/
   width: 250px;
   display: flex;
   flex-direction: column;
@@ -30,17 +28,19 @@
   position: relative;
 }
 
+.group-box:hover {
+  opacity: 0.7;
+}
+
 .group-box p {
-  /*position: absolute;*/
-  /*left: 20px;*/
   color: #d6f291;
-  /*bottom: 0;*/
+  /*margin-top: 5px;*/
 }
 
 .group-box h3 {
   font-size: 24px;
   margin: 0;
-  /*border-bottom: 1px solid gray;*/
+  padding-top: 10px;
 }
 
 a {
@@ -49,7 +49,6 @@ a {
 }
 
 .new-group {
-  /*border: 1px solid lightgray;*/
   background: rgba(115, 102, 148, 0.3);
   margin: 10px;
 }
@@ -59,10 +58,15 @@ a {
   font-size: 18px;
 }
 
+.new-group:hover {
+  opacity: 1;
+}
+
 #group-form {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px;
 }
 
 #new-group-btn {
@@ -71,4 +75,8 @@ a {
   color: white;
   font-size: 30px;
   margin: 0;
+}
+
+#new-group-btn:hover {
+  color: black;
 }

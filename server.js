@@ -185,19 +185,23 @@ app.post("/api/groups/:id/messages", function(req, res){
 })
 
 function cycleMessages(){
-  var currentDate = new Date().getTime()
+  var date = new Date()
   Message.find({}).then(function(messages){
     messages.forEach((msg, i) => {
-      console.log(msg.datetime.getTime())
-      console.log(currentDate)
-      if (currentDate >= msg.datetime.getTime()) {
-        console.log("im firing now")
+      if (date.getFullYear() === msg.datetime.getFullYear() &&
+          date.getMonth() === msg.datetime.getMonth() &&
+          date.getDate() === msg.datetime.getDate() &&
+          date.getHours() === msg.datetime.getUTCHours() &&
+          date.getMinutes() === msg.datetime.getMinutes()
+          ) {
+        console.log("found a match!" + msg.content)
       }
     })
   })
 }
 
-// setInterval(cycleMessages, 20000)
+setInterval(cycleMessages, 60000)
+// cycleMessages()
 
 // function createJob(message){
 //   // var j = schedule.scheduleJob(message.datetime, function(){

@@ -114,11 +114,7 @@ input:focus, button:focus {
 }
 
 .message {
-  /*border-bottom: 1px solid lightgray;*/
-  /*border-bottom: 1px solid #2a939f;*/
-  /*color: black;*/
   border: 1px solid black;
-  /*background: lightgray;*/
   border-radius: 5px;
   margin: 10px 0;
   padding: 10px;

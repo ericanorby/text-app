@@ -30,14 +30,9 @@ nav a:hover {
   opacity: 0.5;
 }
 
-/*body {
-  background: #201e36;
-}*/
-
 main {
   padding: 30px;
   min-height: 70vh;
-  /*background: rgba(255,255,255,0.7);*/
   margin: 30px;
   border-radius: 8px;
 }
@@ -55,5 +50,23 @@ main {
 .homepage img {
   width: 200px;
   margin-top: -20px;
-  /*border: 1px solid gray;*/
+}
+
+.homepage p {
+  margin: 15px 0;
+}
+
+.homepage p:nth-of-type(3) {
+  margin-top: 40px;
+  color: #f62753;
+}
+
+.current-date {
+  font-size: 60px;
+}
+
+#login-btn {
+  font-size: 20px;
+  color: #b2d754;
+  border-color: #b2d754;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import '../group.css';
+import { Redirect } from 'react-router-dom'
 
 //import components
 import Search from './Search'
@@ -13,7 +14,8 @@ class Group extends Component {
     this.state = {
       group: this.props.location.state.selected,
       creator: {},
-      members: []
+      members: [],
+      deleted: false
     }
     this.loadDataFromServer = this.loadDataFromServer.bind(this)
   }
@@ -36,6 +38,9 @@ class Group extends Component {
     .catch((err) => {
       console.log(err)
     })
+    this.setState({
+      deleted: true
+    })
   }
 
   componentDidMount(){
@@ -43,11 +48,12 @@ class Group extends Component {
   }
 
   render(){
+    if (this.state.deleted) {
+      return <Redirect to="/profile" />
+    }
     let members = this.state.members.map((user, index) => {
       return(
-
         <div key={index}>
-
           <p>{user.firstname} {user.lastname}</p>
         </div>
       )
