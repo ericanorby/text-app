@@ -59,27 +59,27 @@ class Group extends Component {
       )
     })
     return(
-      <div>
         <div className="group">
-          <div className="group-info">
-            <div className="group-title">
-              <h1>{this.state.group.title}</h1>
-            </div>
-            <div className="members">
-              <div>
-                <h2>Members:</h2>
-                <p>{this.state.creator.firstname} {this.state.creator.lastname} (creator)</p>
-                {members}
+          <div>
+            <div className="group-info">
+              <div className="group-title">
+                <h1>{this.state.group.title}</h1>
               </div>
-              <Search reload={() => this.loadDataFromServer()} group={this.state.group} />
+              <div className="members">
+                <div>
+                  <h2>Members</h2>
+                  <p>{this.state.creator.firstname} {this.state.creator.lastname} (creator)</p>
+                  {members}
+                </div>
+                <Search reload={() => this.loadDataFromServer()} group={this.state.group} />
+              </div>
             </div>
+            <button id="delete-group-btn" onClick={(e) => this.handleDelete(e)}>Delete Group</button>
           </div>
           <div>
             <Messages group={this.state.group} />
           </div>
         </div>
-        <button id="delete-group-btn" onClick={(e) => this.handleDelete(e)}>Delete Group</button>
-      </div>
     )
   }
 }

@@ -1,17 +1,14 @@
 .group-info {
-  /*border: 1px solid lightgray;*/
-  /*background: #332a47;*/
   background: rgb(115, 102, 148);
   color: white;
   width: 500px;
   border: 0px;
   border-radius: 10px;
-  /*box-shadow: 3px 3px 5px gray;*/
 }
 
 .group-title {
   border-bottom: 1px solid lightgray;
-  padding: 10px;
+  font-size: 18px;
 }
 
 .members {
@@ -19,12 +16,17 @@
   justify-content: space-between;
 }
 
+.members p {
+  margin: 10px 0;
+  color: #fbeb9c;
+}
+
 .group {
   display: flex;
   align-items: flex-start;
 }
 
-.group > * {
+.group-info {
   padding: 30px;
 }
 
@@ -32,7 +34,7 @@ form {
   margin: 20px 0;
 }
 
-button, input {
+input {
   padding: 5px;
   font-size: 14px;
   margin: 0 5px;
@@ -45,11 +47,11 @@ button {
   border: 1px solid #d6f291;
   border-radius: 5px;
   padding: 6px 10px;
+  margin: 0 5px;
 }
 
 button:hover {
   cursor: pointer;
-  /*color: black;*/
   background: black;
 }
 
@@ -70,9 +72,8 @@ button:hover {
 
 #delete-group-btn {
   margin-top: 30px;
-  color: red;
-  border: none;
-  background: none;
+  color: #f62753;
+  border-color: #f62753;
 }
 
 input:focus, button:focus {
@@ -85,21 +86,19 @@ input:focus, button:focus {
   margin-bottom: 10px;
 }
 
-/*#date-field {
-  width: 120px;
-}*/
-
 .results {
   margin: 20px 0;
   font-size: 20px;
 }
 
+.message-container {
+  padding: 30px;
+}
+
 .message-container h1 {
   padding-bottom: 20px;
   margin: 0;
-  /*border-bottom: 1px solid lightgray;*/
 }
-
 
 .message p {
   font-size: 18px;
@@ -108,7 +107,6 @@ input:focus, button:focus {
 }
 
 .message span {
-  /*background: black;*/
   color: gray;
   margin-left: 8px;
 }

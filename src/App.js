@@ -5,17 +5,7 @@ import {
   Link,
   Redirect
 } from 'react-router-dom'
-// import { login, logout, isLoggedIn } from '../config/AuthService'
 import './App.css';
-
-
-
-// { ( isLoggedIn() ) ?
-//   <div>
-// <Link to="/profile">Profile</Link>
-// <Link to="/logout" onClick={() => logout()}>Log Out</Link>
-// </div>: ""
-// }
 
 //import components
 import Home from './components/Home'
@@ -29,7 +19,6 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      user: {},
       loggedIn: false
     }
   }
@@ -47,11 +36,10 @@ class App extends Component {
   }
 
   render() {
-      // var isLoggedIn = this.state.loggedIn
       // var toggleLink = null
       // var toggleLink2 = null
-      // if (isLoggedIn){
-      //   toggleLink = <Link to="/logout">Log Out</Link>
+      // if (this.state.loggedIn) {
+      //   toggleLink = <Link to="/logout">Log Out <i className="fa fa-sign-out" aria-hidden="true"></i></Link>
       //   toggleLink2 = <Link to="/profile">Profile</Link>
       // } else {
       //   toggleLink = <Link to="/login">Log In</Link>
@@ -64,10 +52,9 @@ class App extends Component {
           <nav>
             <Link to="/">Home</Link>
             <Link to="/profile">Profile</Link>
-            <Link to="/login">Log In</Link>
             <Link to="/signup">Sign Up</Link>
             <div>
-              <img src="https://www.iconexperience.com/_img/o_collection_png/green_dark_grey/512x512/plain/clock.png" />
+              <img src="https://www.iconexperience.com/_img/o_collection_png/green_dark_grey/512x512/plain/clock.png" alt="clock" />
               <h1>TextSet</h1>
             </div>
         </nav>
@@ -91,8 +78,11 @@ class App extends Component {
             <Route
               path="/login"
               render={() => {
+                if (this.state.loggedIn){
+                  return <Redirect to="/profile" />
+                }
                 return(
-                  <Login updateLogin={() => this.updateLogin()} user={this.state.user} />
+                  <Login updateLogin={() => this.updateLogin()} />
                 )
               }}
             />
@@ -107,6 +97,9 @@ class App extends Component {
             <Route
               path="/signup"
               render={() => {
+                if (this.state.loggedIn){
+                  return <Redirect to="/profile" />
+                }
                 return(
                   <Signup />
                 )

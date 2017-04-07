@@ -24,18 +24,6 @@ class NewMessage extends Component {
       datetime: event.target.value
     })
   }
-  //
-  // handleDate(event){
-  //   this.setState({
-  //     date: event.target.value
-  //   })
-  // }
-  //
-  // handleTime(event){
-  //   this.setState({
-  //     time: event.target.value
-  //   })
-  // }
 
   handleSubmit(event){
     event.preventDefault()

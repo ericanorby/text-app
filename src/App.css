@@ -21,17 +21,20 @@ nav img {
 nav a {
   margin: 0 20px;
   float: right;
+  font-size: 18px;
   color: gray;
   text-decoration: none;
   text-transform: uppercase;
+  padding-bottom: 5px;
+  border-bottom: 1px solid white;
 }
 
 nav a:hover {
-  opacity: 0.5;
+  border-color: gray;
 }
 
 main {
-  padding: 30px;
+  padding: 10px 30px;
   min-height: 70vh;
   margin: 30px;
   border-radius: 8px;
@@ -61,12 +64,35 @@ main {
   color: #f62753;
 }
 
+.homepage a {
+  margin: 0;
+}
+
 .current-date {
   font-size: 60px;
 }
 
 #login-btn {
   font-size: 20px;
+  color: #b2d754;
+  border-color: #b2d754;
+}
+
+.user-form {
+  text-align: center;
+}
+
+.user-form form {
+  margin: 0 auto;
+}
+
+.user-form input, .user-form button {
+  font-size: 22px;
+  width: 300px;
+  margin: 10px 0;
+}
+
+.user-form button {
   color: #b2d754;
   border-color: #b2d754;
 }

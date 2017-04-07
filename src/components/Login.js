@@ -30,7 +30,7 @@ class Login extends Component {
     let password = this.state.password.trim()
     axios.post("http://localhost:3001/api/login", {email, password})
     .then((res) => {
-      console.log(res.data)
+      this.props.updateLogin()
     })
     .catch((err) => {
       console.log(err);
@@ -39,13 +39,14 @@ class Login extends Component {
 
   render(){
     return(
-      <div>
+      <div className="user-form">
+        <h1>Login</h1>
         <form onSubmit={(e) => {this.handleSubmit(e)}}>
           <div>
-              <input type="text" placeholder="email" onChange={(e) => {this.handleEmail(e)}} />
+              <input type="text" placeholder="Email" onChange={(e) => {this.handleEmail(e)}} />
           </div>
           <div>
-              <input type="password" placeholder="password" onChange={(e) => {this.handlePassword(e)}} />
+              <input type="password" placeholder="Password" onChange={(e) => {this.handlePassword(e)}} />
           </div>
           <div>
               <button type="submit">Log In</button>

@@ -6,16 +6,19 @@ const mongoose = require("./db/connection.js")
 const port = process.env.API_PORT || 3001
 const cookie = require("cookie-parser")
 const parser = require("body-parser")
-const jwt = require("express-jwt")
 const passport = require("passport")
 const session = require("express-session")
-const MongoStore = require('connect-mongo')(session)
-// const auth = require("./config/auth.js")
+const auth = require("./config/auth.js")
 require("./config/passport")(passport)
-var schedule = require('node-schedule')
 const User = require("./db/models.js").User
 const Group = require("./db/models.js").Group
 const Message = require("./db/models.js").Message
+
+//Twilio
+var accountSid = 'AC777e2ca4d5336491ef519df453e2230f';
+var authToken = auth.token;
+var client = require('twilio')(accountSid, authToken);
+
 
 app.use(function(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -25,44 +28,35 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(cookie('mysecretboxofsecretdom'))
 app.use(parser.urlencoded({ extended: true }))
 app.use(parser.json())
-
-app.use(session({
-  secret: 'mysecretboxofsecretdom',
-  saveUninitialized: true,
-  resave: true,
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
-}))
 
 app.use(passport.initialize())
 app.use(passport.session())
 
-// var date = new Date(2017, 3, 5, 15, 2, 0)
-// console.log(date)
-//
-// var j = schedule.scheduleJob(date, function(){
-//   console.log("It is 3:02 pm")
-// })
-
 app.post('/api/signup',
   passport.authenticate("local-signup"), function(req, res){
     console.log(req.user)
-    currentUser = req.user
   }
 )
 
 app.post('/api/login',
   passport.authenticate("local-login"), function(req, res){
     console.log(req.user)
-    currentUser = req.user
   }
 )
 
-app.get("/api/profile", function(req,res){
-  // console.log("session value is: " + req.session.email)
-  User.findOne({email: "patrick@email.com"}).populate('groups').exec(function(err, user){
+// app.get("/api/profile", function(req,res){
+//   User.findOne({email: "patrick@email.com"}).populate('groups').exec(function(err, user){
+//     res.json({
+//       user: user,
+//       groups: user.groups
+//     })
+//   })
+// })
+
+app.get("/api/profile/:phone", function(req,res){
+  User.findOne({phone: req.params.phone}).populate('groups').exec(function(err, user){
     res.json({
       user: user,
       groups: user.groups
@@ -185,31 +179,38 @@ app.post("/api/groups/:id/messages", function(req, res){
 })
 
 function cycleMessages(){
-  var date = new Date()
-  Message.find({}).then(function(messages){
-    messages.forEach((msg, i) => {
-      if (date.getFullYear() === msg.datetime.getFullYear() &&
-          date.getMonth() === msg.datetime.getMonth() &&
-          date.getDate() === msg.datetime.getDate() &&
-          date.getHours() === msg.datetime.getUTCHours() &&
-          date.getMinutes() === msg.datetime.getMinutes()
-          ) {
-        console.log("found a match!" + msg.content)
-      }
+  Group.find({}).populate('users').then(function(groups){
+    groups.forEach((group) => {
+      group.messages.forEach((msg) => {
+        var date = new Date()
+        if (date.getFullYear() === msg.datetime.getFullYear() &&
+            date.getUTCMonth() === msg.datetime.getUTCMonth() &&
+            date.getUTCDate() === msg.datetime.getUTCDate() &&
+            date.getHours() === msg.datetime.getUTCHours() &&
+            date.getUTCMinutes() === msg.datetime.getUTCMinutes()
+            ) {
+          newTwilioMsg(group, msg)
+        }
+      })
+    })
+  })
+}
+
+
+
+function newTwilioMsg(group, msg){
+  group.users.forEach((user) => {
+    client.messages.create({
+      to: "+1" + user.phone,
+      from: "+15083068079",
+      body: msg.content
+    }, function(err, message) {
+      console.log(message.sid);
     })
   })
 }
 
 setInterval(cycleMessages, 60000)
-// cycleMessages()
-
-// function createJob(message){
-//   // var j = schedule.scheduleJob(message.datetime, function(){
-//   //   console.log("OMG it worked")
-//   // })
-//   console.log(message.datetime)
-// }
-
 
 app.delete("/api/groups/:id/messages", function(req, res){
   Group.findOneAndUpdate({_id: req.params.id},

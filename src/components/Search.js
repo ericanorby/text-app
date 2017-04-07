@@ -63,9 +63,9 @@ class Search extends Component {
     }
     return(
       <div className="search-box">
-        <h4>Add new member:</h4>
+        <h4>Add new member</h4>
         <form onSubmit={(e) => {this.handleSearchQuery(e)}}>
-          <input type="text" placeholder="phone number" onChange={(e) => {this.handleSearchInput(e)}} />
+          <input type="text" placeholder="Phone number" onChange={(e) => {this.handleSearchInput(e)}} />
           <button type="submit"><i className="fa fa-search" aria-hidden="true"></i></button>
         </form>
         {results}

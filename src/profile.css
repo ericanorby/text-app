@@ -2,10 +2,19 @@
   text-align: center;
 }
 
+.profile h1 {
+  margin-top: 50px;
+}
+
 .user-profile {
   border-bottom: 1px solid lightgray;
   width: 90%;
   margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+.user-profile h3 {
+  margin: 10px;
 }
 
 .group-container {

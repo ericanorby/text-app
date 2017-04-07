@@ -63,14 +63,14 @@ class Messages extends Component {
   }
 
   render(){
-    let messages = this.state.messages.map((message, index) => {
+    let messages = this.state.messages.map((msg, index) => {
       return(
         <div key={index} className="message">
           <div>
-            <p>{message.content}</p>
-            <span>{message.datetime}</span>
+            <p>{msg.content}</p>
+            <span>{msg.datetime}</span>
           </div>
-          <button className="delete-msg-btn" onClick={(e) => this.handleDeleteMessage(e, index, message._id)}><i className="fa fa-times" aria-hidden="true"></i></button>
+          <button className="delete-msg-btn" onClick={(e) => this.handleDeleteMessage(e, index, msg._id)}><i className="fa fa-times" aria-hidden="true"></i></button>
         </div>
       )
     })

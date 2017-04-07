@@ -51,9 +51,9 @@ class Signup extends Component {
     let lastname = this.state.lastname.trim()
     let phone = this.state.phone.trim()
     axios.post("http://localhost:3001/api/signup", {email, password, firstname, lastname, phone})
-    .then((response) => {
-      console.log(response)
-      this.setState({email: "", password: ""})
+    .then((res) => {
+      console.log(res.data)
+      this.props.updateLogin(res.data)
     })
     .catch((err) => {
       console.log(err);
@@ -62,22 +62,23 @@ class Signup extends Component {
 
   render(){
     return(
-      <div>
+      <div className="user-form">
+        <h1>Sign Up</h1>
         <form onSubmit={(e) => {this.handleSubmit(e)}}>
           <div>
-              <input type="text" placeholder="email" onChange={(e) => {this.handleEmail(e)}} />
+              <input type="text" placeholder="Email" onChange={(e) => {this.handleEmail(e)}} />
           </div>
           <div>
-              <input type="password" placeholder="password" onChange={(e) => {this.handlePassword(e)}} />
+              <input type="password" placeholder="Password" onChange={(e) => {this.handlePassword(e)}} />
           </div>
           <div>
-              <input type="text" placeholder="first name" onChange={(e) => {this.handleFirstName(e)}} />
+              <input type="text" placeholder="First name" onChange={(e) => {this.handleFirstName(e)}} />
           </div>
           <div>
-              <input type="text" placeholder="last name" onChange={(e) => {this.handleLastName(e)}} />
+              <input type="text" placeholder="Last name" onChange={(e) => {this.handleLastName(e)}} />
           </div>
           <div>
-              <input type="text" placeholder="phone number" onChange={(e) => {this.handlePhone(e)}} />
+              <input type="text" placeholder="Phone number" onChange={(e) => {this.handlePhone(e)}} />
           </div>
           <div>
               <button type="submit">Sign Up</button>
