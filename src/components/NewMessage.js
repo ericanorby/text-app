@@ -47,7 +47,7 @@ class NewMessage extends Component {
         <form onSubmit={(e) => {this.handleSubmit(e)}}>
           <input id="message-field" type="text" placeholder="Add a message" onChange={(e) => {this.handleContent(e)}} />
           <input id="date-field" type="datetime-local" onChange={(e) => {this.handleDateTime(e)}}/>
-          <button type="submit" className="new-msg-btn">Create</button>
+          <button type="submit" className="dark">Create</button>
         </form>
       </div>
     )

@@ -4,12 +4,15 @@ const express = require("express")
 const app = express()
 const mongoose = require("./db/connection.js")
 const port = process.env.API_PORT || 3001
-const cookie = require("cookie-parser")
+
 const parser = require("body-parser")
 const passport = require("passport")
 const session = require("express-session")
+const MongoStore = require('connect-mongo')(session)
 const auth = require("./config/auth.js")
 require("./config/passport")(passport)
+
+//import models
 const User = require("./db/models.js").User
 const Group = require("./db/models.js").Group
 const Message = require("./db/models.js").Message
@@ -30,6 +33,15 @@ app.use(function(req, res, next) {
 
 app.use(parser.urlencoded({ extended: true }))
 app.use(parser.json())
+
+app.use(session({
+  secret: 'secretyay',
+  resave: true,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  })
+}))
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -55,8 +67,8 @@ app.post('/api/login',
 //   })
 // })
 
-app.get("/api/profile/:phone", function(req,res){
-  User.findOne({phone: req.params.phone}).populate('groups').exec(function(err, user){
+app.get("/api/profile", function(req,res){
+  User.findOne({email: "ericanorby@gmail.com"}).populate('groups').exec(function(err, user){
     res.json({
       user: user,
       groups: user.groups
@@ -166,7 +178,6 @@ app.post("/api/groups/:id/messages", function(req, res){
           console.log(err)
         }
         res.json(message)
-        // console.log(message.datetime.getTime())
         group.messages.push(message)
         group.save(function(err){
           if (err) {
@@ -179,7 +190,8 @@ app.post("/api/groups/:id/messages", function(req, res){
 })
 
 function cycleMessages(){
-  Group.find({}).populate('users').then(function(groups){
+  var popQuery = [{path: 'creator', model: 'User'}, {path: 'users', model: 'User'}]
+  Group.find({}).populate(popQuery).then(function(groups){
     groups.forEach((group) => {
       group.messages.forEach((msg) => {
         var date = new Date()
@@ -199,6 +211,13 @@ function cycleMessages(){
 
 
 function newTwilioMsg(group, msg){
+  client.messages.create({
+    to: "+1" + group.creator.phone,
+    from: "+15083068079",
+    body: msg.content
+  }, function(err, message) {
+    console.log(message.sid);
+  })
   group.users.forEach((user) => {
     client.messages.create({
       to: "+1" + user.phone,

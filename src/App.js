@@ -36,15 +36,15 @@ class App extends Component {
   }
 
   render() {
-      // var toggleLink = null
-      // var toggleLink2 = null
-      // if (this.state.loggedIn) {
-      //   toggleLink = <Link to="/logout">Log Out <i className="fa fa-sign-out" aria-hidden="true"></i></Link>
-      //   toggleLink2 = <Link to="/profile">Profile</Link>
-      // } else {
-      //   toggleLink = <Link to="/login">Log In</Link>
-      //   toggleLink2 = <Link to="/signup">Sign Up</Link>
-      // }
+      var toggleLink = null
+      var toggleLink2 = null
+      if (this.state.loggedIn) {
+        toggleLink = <Link to="/logout">Log Out <i className="fa fa-sign-out" aria-hidden="true"></i></Link>
+        toggleLink2 = <Link to="/profile">Profile</Link>
+      } else {
+        toggleLink = <Link to="/login">Log In</Link>
+        toggleLink2 = <Link to="/signup">Sign Up</Link>
+      }
 
     return (
       <Router>
@@ -52,7 +52,6 @@ class App extends Component {
           <nav>
             <Link to="/">Home</Link>
             <Link to="/profile">Profile</Link>
-            <Link to="/signup">Sign Up</Link>
             <div>
               <img src="https://www.iconexperience.com/_img/o_collection_png/green_dark_grey/512x512/plain/clock.png" alt="clock" />
               <h1>TextSet</h1>
@@ -90,7 +89,7 @@ class App extends Component {
               path="/logout"
               render={() => {
                 return(
-                  <Logout updateLogout={() => this.updateLogout()}/>
+                  <Logout updateLogout={() => this.updateLogout()} />
                 )
               }}
             />
@@ -101,7 +100,7 @@ class App extends Component {
                   return <Redirect to="/profile" />
                 }
                 return(
-                  <Signup />
+                  <Signup updateLogin={() => this.updateLogin()} />
                 )
               }}
             />

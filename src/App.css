@@ -37,13 +37,12 @@ main {
   padding: 10px 30px;
   min-height: 70vh;
   margin: 30px;
-  border-radius: 8px;
 }
 
 .homepage {
   display: flex;
   justify-content: center;
-  font-size: 30px;
+  font-size: 26px;
 }
 
 .homepage > * {
@@ -62,6 +61,8 @@ main {
 .homepage p:nth-of-type(3) {
   margin-top: 40px;
   color: #f62753;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 30px;
 }
 
 .homepage a {
@@ -73,9 +74,7 @@ main {
 }
 
 #login-btn {
-  font-size: 20px;
-  color: #b2d754;
-  border-color: #b2d754;
+  font-size: 22px;
 }
 
 .user-form {
@@ -89,10 +88,10 @@ main {
 .user-form input, .user-form button {
   font-size: 22px;
   width: 300px;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
 .user-form button {
-  color: #b2d754;
-  border-color: #b2d754;
+  width: 312px;
+  margin: 15px 0;
 }

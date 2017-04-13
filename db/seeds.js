@@ -61,40 +61,40 @@ spongebob.save()
 patrick.save()
 squidward.save()
 sandy.save()
-
-var group1 = new Group({
-  title: "Spongebob's awesome group",
-  creator: spongebob._id,
-  users: [squidward._id, sandy._id],
-  messages: []
-})
-
-var group2 = new Group({
-  title: "Patrick's group is better",
-  creator: patrick._id,
-  users: [sandy._id],
-  messages: []
-})
-
-group1.save(function(err){
-  if (err){
-    console.log(err)
-  }
-  else {
-    console.log(group1)
-  }
-})
-
-group2.save(function(err){
-  if (err){
-    console.log(err)
-  }
-  else {
-    console.log(group2)
-  }
-})
-
-spongebob.groups.push(group1)
-spongebob.save().then((user) =>{
-  console.log(user)
-})
+//
+// var group1 = new Group({
+//   title: "Spongebob's awesome group",
+//   creator: spongebob._id,
+//   users: [squidward._id, sandy._id],
+//   messages: []
+// })
+//
+// var group2 = new Group({
+//   title: "Patrick's group is better",
+//   creator: patrick._id,
+//   users: [sandy._id],
+//   messages: []
+// })
+//
+// group1.save(function(err){
+//   if (err){
+//     console.log(err)
+//   }
+//   else {
+//     console.log(group1)
+//   }
+// })
+//
+// group2.save(function(err){
+//   if (err){
+//     console.log(err)
+//   }
+//   else {
+//     console.log(group2)
+//   }
+// })
+//
+// spongebob.groups.push(group1)
+// spongebob.save().then((user) =>{
+//   console.log(user)
+// })

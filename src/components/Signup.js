@@ -52,8 +52,7 @@ class Signup extends Component {
     let phone = this.state.phone.trim()
     axios.post("http://localhost:3001/api/signup", {email, password, firstname, lastname, phone})
     .then((res) => {
-      console.log(res.data)
-      this.props.updateLogin(res.data)
+      this.props.updateLogin()
     })
     .catch((err) => {
       console.log(err);

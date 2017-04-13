@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import '../profile.css';
 import NewGroup from './NewGroup'
-import FindProfile from './FindProfile'
+// import FindProfile from './FindProfile'
 
 class Profile extends Component {
   constructor(props){
@@ -16,7 +16,7 @@ class Profile extends Component {
   }
 
   loadGroupsFromServer(phone){
-    axios.get(`http://localhost:3001/api/profile/${phone}`).then((res) => {
+    axios.get("http://localhost:3001/api/profile").then((res) => {
       this.setState({
         user: res.data.user,
         groups: res.data.groups
@@ -38,6 +38,14 @@ class Profile extends Component {
     })
   }
 
+  componentDidMount(){
+    this.loadGroupsFromServer()
+  }
+
+  componentDidUpdate(){
+    this.loadGroupsFromServer()
+  }
+
   render(){
     var groups = this.state.groups.map((group, index) => {
       let pathname = `/groups/${group._id}`
@@ -52,7 +60,6 @@ class Profile extends Component {
     })
     return(
       <div className="profile">
-        <FindProfile submitQuery={(e) => this.loadGroupsFromServer(e)}/>
         <div className="user-profile">
           <h3>{this.state.user.firstname} {this.state.user.lastname}</h3>
           <h3>{this.state.user.email}</h3>

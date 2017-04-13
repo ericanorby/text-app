@@ -1,9 +1,10 @@
 .group-info {
-  background: rgb(115, 102, 148);
+  background: rgb(64, 61, 126);
   color: white;
   width: 500px;
   border: 0px;
-  border-radius: 10px;
+  /*border-radius: 8px;*/
+  box-shadow: 3px 3px 8px gray;
 }
 
 .group-title {
@@ -42,9 +43,9 @@ input {
 
 button {
   background: none;
-  color: #d6f291;
+  color: #a7d565;
   font-size: 16px;
-  border: 1px solid #d6f291;
+  border: 1px solid #a7d565;
   border-radius: 5px;
   padding: 6px 10px;
   margin: 0 5px;
@@ -52,16 +53,12 @@ button {
 
 button:hover {
   cursor: pointer;
-  background: black;
+  color: white;
+  background: #a7d565;
 }
 
 .new-msg {
   display: flex;
-}
-
-.new-msg-btn {
-  color: #b2d754;
-  border-color: #b2d754;
 }
 
 .delete-msg-btn {
@@ -72,8 +69,13 @@ button:hover {
 
 #delete-group-btn {
   margin-top: 30px;
-  color: #f62753;
-  border-color: #f62753;
+  color: darkred;
+  border-color: darkred;
+}
+
+#delete-group-btn:hover {
+  background: darkred;
+  color: white;
 }
 
 input:focus, button:focus {
@@ -112,7 +114,7 @@ input:focus, button:focus {
 }
 
 .message {
-  border: 1px solid black;
+  border: 1px solid rgb(30, 18, 41);
   border-radius: 5px;
   margin: 10px 0;
   padding: 10px;

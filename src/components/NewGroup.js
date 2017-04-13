@@ -32,7 +32,7 @@ class NewGroup extends Component {
     return(
       <div>
         <form id="group-form" onSubmit={(e) => {this.handleSubmit(e)}}>
-              <input type="text" id="title-field" placeholder="title" onChange={(e) => {this.handleTitle(e)}} />
+              <input type="text" id="title-field" placeholder="Group name" onChange={(e) => {this.handleTitle(e)}} />
               <button type="submit" id="new-group-btn"><i className="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
         </form>
       </div>
